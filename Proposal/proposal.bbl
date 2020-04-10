@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{Agrawal_2016}
+A.~Agrawal, J.~Lu, S.~Antol, M.~Mitchell, C.~L. Zitnick, D.~Parikh, and
+  D.~Batra.
+\newblock Vqa: Visual question answering.
+\newblock {\em International Journal of Computer Vision}, 123(1):4–31, Nov
+  2016.
+
+\bibitem{jiang2018pythia}
+Y.~Jiang, V.~Natarajan, X.~Chen, M.~Rohrbach, D.~Batra, and D.~Parikh.
+\newblock Pythia v0.1: the winning entry to the vqa challenge 2018, 2018.
+
+\bibitem{Srivastava2019VisualQA}
+Y.~Srivastava, V.~Murali, S.~R. Dubey, and S.~Mukherjee.
+\newblock Visual question answering using deep learning: A survey and
+  performance analysis.
+\newblock {\em ArXiv}, abs/1909.01860, 2019.
+
+\bibitem{wu2019differential}
+C.~Wu, J.~Liu, X.~Wang, and R.~Li.
+\newblock Differential networks for visual question answering.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~33, pages 8997--9004, 2019.
+
+\bibitem{Yang_2016}
+Z.~Yang, X.~He, J.~Gao, L.~Deng, and A.~Smola.
+\newblock Stacked attention networks for image question answering.
+\newblock {\em 2016 IEEE Conference on Computer Vision and Pattern Recognition
+  (CVPR)}, Jun 2016.
+
+\end{thebibliography}
