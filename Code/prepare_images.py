@@ -91,8 +91,7 @@ def extract_features(paths):
             image_path, model, (224, 224, 3))
 
         if (i+1) % 100 == 0:
-            logger.info("extract features from %i / %i images" % (i, num_ims))
-            break
+            logger.info("extract features from %i/%i images." % (i+1, num_ims))
     return ims
 
 
@@ -119,7 +118,7 @@ def save_train_features():
 
     df = pd.DataFrame(train_ims)
     df.to_csv('dataset/vgg19/X_train_ims_VGG19.csv')
-    logger.info('saved in \"X_train_ims_VGG19.csv\"')
+    logger.info('saved in \"X_train_ims_VGG19.csv\".')
 
 
 def save_val_features():
@@ -133,7 +132,7 @@ def save_val_features():
 
     df = pd.DataFrame(val_ims)
     df.to_csv('dataset/vgg19/X_val_ims_VGG19.csv')
-    logger.info('saved in \"X_val_ims_VGG19.csv\"')
+    logger.info('saved in \"X_val_ims_VGG19.csv\".')
 
 
 def save_test_features():
@@ -147,7 +146,7 @@ def save_test_features():
 
     df = pd.DataFrame(test_ims)
     df.to_csv('dataset/vgg19/X_test_ims_VGG19.csv')
-    logger.info('saved in \"X_test_ims_VGG19.csv\"')
+    logger.info('saved in \"X_test_ims_VGG19.csv\."')
 
 
 save_train_features()
