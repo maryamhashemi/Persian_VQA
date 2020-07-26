@@ -7,8 +7,8 @@ from PIL import Image
 from constants import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG19
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.applications.vgg19 import preprocess_input
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 
 logger = logging.getLogger(__name__)
@@ -116,7 +116,7 @@ def save_train_features():
     logger.info("End: extract features from train images.")
 
     df = pd.DataFrame(train_ims)
-    df.to_csv('X_train_ims_VGG19.csv')
+    df.to_csv('dataset/vgg19/X_train_ims_VGG19.csv')
     logger.info('saved in \"X_train_ims_VGG19.csv\"')
 
 
@@ -130,7 +130,7 @@ def save_val_features():
     logger.info("End: extract features from val images.")
 
     df = pd.DataFrame(val_ims)
-    df.to_csv('X_val_ims_VGG19.csv')
+    df.to_csv('dataset/vgg19/X_val_ims_VGG19.csv')
     logger.info('saved in \"X_val_ims_VGG19.csv\"')
 
 
@@ -144,7 +144,7 @@ def save_test_features():
     logger.info("End: extract features from test images.")
 
     df = pd.DataFrame(test_ims)
-    df.to_csv('X_test_ims_VGG19.csv')
+    df.to_csv('dataset/vgg19/X_test_ims_VGG19.csv')
     logger.info('saved in \"X_test_ims_VGG19.csv\"')
 
 
