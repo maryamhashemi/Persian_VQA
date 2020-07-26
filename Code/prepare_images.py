@@ -89,7 +89,7 @@ def extract_features(paths):
         ims[image_id] = load_and_proccess_image(
             image_path, model, (224, 224, 3))
 
-        if i % 1 == 100:
+        if i % 100 == 0:
             logger.info("extract features form %i of images" % i)
     return ims
 
