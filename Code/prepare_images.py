@@ -85,12 +85,13 @@ def extract_features(paths):
     model = Model(inputs=base_model.input,
                   outputs=base_model.get_layer('fc2').output)
 
+    num_ims = len(paths)
     for i, (image_id, image_path) in enumerate(paths.items()):
         ims[image_id] = load_and_proccess_image(
             image_path, model, (224, 224, 3))
 
-        if i % 100 == 0:
-            logger.info("extract features form %i of images" % i)
+        if (i+1) % 100 == 0:
+            logger.info("extract features from %i / %i images" % (i, num_ims))
             break
     return ims
 
