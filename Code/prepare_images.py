@@ -4,6 +4,7 @@ import logging
 import numpy as np
 import pandas as pd
 from PIL import Image
+import deepdish as dd
 from constants import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG19
@@ -91,7 +92,9 @@ def extract_features(paths):
             image_path, model, (224, 224, 3))
 
         if (i+1) % 100 == 0:
-            logger.info("extract features from %i/%i images." % (i+1, num_ims))
+            logger.info("extract features from %i/%i images." %
+                        (i + 1, num_ims))
+            break
     return ims
 
 
@@ -109,44 +112,62 @@ def get_test_image_paths():
 
 def save_train_features():
     """
-    extract features from train images using VGG19 and save them as .csv file.
+    extract features from train images using VGG19 and save them as .csv and .h5 file.
 
     """
     logger.info("Start: extract features from train images.")
     train_ims = extract_features(get_train_image_paths())
     logger.info("End: extract features from train images.")
 
+    # .csv
     df = pd.DataFrame(train_ims)
     df.to_csv('dataset/vgg19/X_train_ims_VGG19.csv')
     logger.info('saved in \"X_train_ims_VGG19.csv\".')
 
+    # .h5
+    dd.io.save('dataset/vgg19/X_train_ims_VGG19.h5',
+               train_ims, compression=None)
+    logger.info('saved in \"X_train_ims_VGG19.h5\".')
+
 
 def save_val_features():
     """
-    extract features from validation images using VGG19 and save them as .csv file.
+    extract features from validation images using VGG19 and save them as .csv and .h5 file.
 
     """
     logger.info("Start: extract features from val images.")
     val_ims = extract_features(get_val_image_paths())
     logger.info("End: extract features from val images.")
 
+    # .csv
     df = pd.DataFrame(val_ims)
     df.to_csv('dataset/vgg19/X_val_ims_VGG19.csv')
     logger.info('saved in \"X_val_ims_VGG19.csv\".')
 
+    # .h5
+    dd.io.save('dataset/vgg19/X_val_ims_VGG19.h5',
+               val_ims, compression=None)
+    logger.info('saved in \"X_val_ims_VGG19.h5\".')
+
 
 def save_test_features():
     """
-    extract features from test images using VGG19 and save them as .csv file.
+    extract features from test images using VGG19 and save them as .csv and .h5 file.
 
     """
     logger.info("Start: extract features from test images.")
     test_ims = extract_features(get_test_image_paths())
     logger.info("End: extract features from test images.")
 
+    # .csv
     df = pd.DataFrame(test_ims)
     df.to_csv('dataset/vgg19/X_test_ims_VGG19.csv')
     logger.info('saved in \"X_test_ims_VGG19.csv\."')
+
+    # .h5
+    dd.io.save('dataset/vgg19/X_test_ims_VGG19.h5',
+               test_ims, compression=None)
+    logger.info('saved in \"X_test_ims_VGG19.h5\".')
 
 
 save_train_features()
