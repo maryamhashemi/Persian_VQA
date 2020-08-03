@@ -136,7 +136,7 @@ def save_val_features():
     logger.info("End: extract features from val images.")
 
     # .h5
-    dd.io.save(BASE_PATH + 'dataset/dataset/vgg16/X_val_ims_VGG16.h5',
+    dd.io.save(BASE_PATH + 'dataset/vgg16/X_val_ims_VGG16.h5',
                val_ims, compression=None)
     logger.info('saved in \"X_val_ims_VGG16.h5\".')
 
@@ -151,7 +151,7 @@ def save_test_features():
     logger.info("End: extract features from test images.")
 
     # .h5
-    dd.io.save(BASE_PATH + 'dataset/dataset/vgg16/X_test_ims_VGG16.h5',
+    dd.io.save(BASE_PATH + 'dataset/vgg16/X_test_ims_VGG16.h5',
                test_ims, compression=None)
     logger.info('saved in \"X_test_ims_VGG16.h5\".')
 
