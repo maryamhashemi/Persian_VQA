@@ -1,6 +1,6 @@
 import os
 
-BASE_PATH = '/home/ubuntu/vqa'
+BASE_PATH = '/home/ubuntu/vqa/'
 QUESTION_TRAIN_PATH = os.path.join(BASE_PATH, '...')
 ANNOTATION_TRAIN_PATH = os.path.join(BASE_PATH, '...')
 IMAGE_TRAIN_PATH = os.path.join(BASE_PATH, 'dataset/train2014')
