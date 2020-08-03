@@ -95,7 +95,6 @@ def extract_features(paths):
         if (i+1) % 100 == 0:
             logger.info("extract features from %i/%i images." %
                         (i + 1, num_ims))
-            break
     return ims
 
 
