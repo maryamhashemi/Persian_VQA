@@ -88,7 +88,7 @@ def extract_features(paths, dir):
     num_ims = len(paths)
     for i, (image_id, image_path) in enumerate(paths.items()):
         feature = load_and_proccess_image(image_path, model, (448, 448, 3))
-        np.save(BASE_PATH + dir + image_id + '.npy', feature)
+        np.save(BASE_PATH + dir + str(image_id) + '.npy', feature)
 
         if (i+1) % 100 == 0:
             logger.info("extract features from %i/%i images." %
