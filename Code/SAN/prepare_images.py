@@ -113,7 +113,7 @@ def save_train_features():
     extract features from train images using VGG16 and save them as .npy file.
 
     """
-    dir = 'dataset/vgg16/train'
+    dir = 'dataset/vgg16/train/'
     logger.info("Start: extract features from train images.")
     extract_features(get_train_image_paths(), dir)
     logger.info("End: extract features from train images.")
@@ -124,7 +124,7 @@ def save_val_features():
     extract features from validation images using VGG16 and save them as .npy file.
 
     """
-    dir = 'dataset/vgg16/val'
+    dir = 'dataset/vgg16/val/'
     logger.info("Start: extract features from val images.")
     val_ims = extract_features(get_val_image_paths(), dir)
     logger.info("End: extract features from val images.")
@@ -135,7 +135,7 @@ def save_test_features():
     extract features from test images using VGG16 and save them as .npy file.
 
     """
-    dir = 'dataset/vgg16/test'
+    dir = 'dataset/vgg16/test/'
     logger.info("Start: extract features from test images.")
     test_ims = extract_features(get_test_image_paths(), dir)
     logger.info("End: extract features from test images.")
