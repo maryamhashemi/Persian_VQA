@@ -1,5 +1,6 @@
 from constants import *
 from image_layer import *
+from attention_layer import *
 from question_layer_CNN import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import, Dense, Input
