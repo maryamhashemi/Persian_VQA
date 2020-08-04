@@ -11,7 +11,7 @@ from tensorflow.keras.applications import VGG16
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-
+# logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -71,31 +71,29 @@ def load_and_proccess_image(image_path, model, image_size):
     return features
 
 
-def extract_features(paths):
+def extract_features(paths, dir):
     """
     extract features from images using VGG16.
 
     Arguments:
     paths -- a dictionary that maps image_ids to image paths.
+    dir -- a directoty path to save features.
 
-    Return:
-    ims -- a dictionary that saves mapping between image_ids and image features.
 
     """
-    ims = {}
     base_model = VGG16(include_top=False, weights='imagenet')
     model = Model(inputs=base_model.input,
                   outputs=base_model.get_layer('block5_pool').output)
 
     num_ims = len(paths)
     for i, (image_id, image_path) in enumerate(paths.items()):
-        ims[image_id] = load_and_proccess_image(
-            image_path, model, (448, 448, 3))
+        feature = load_and_proccess_image(image_path, model, (448, 448, 3))
+        np.save(BASE_PATH + dir + image_id + '.npy', feature)
 
         if (i+1) % 100 == 0:
             logger.info("extract features from %i/%i images." %
                         (i + 1, num_ims))
-    return ims
+            break
 
 
 def get_train_image_paths():
@@ -112,47 +110,35 @@ def get_test_image_paths():
 
 def save_train_features():
     """
-    extract features from train images using VGG16 and save them as .h5 file.
+    extract features from train images using VGG16 and save them as .npy file.
 
     """
+    dir = 'dataset/vgg16/train'
     logger.info("Start: extract features from train images.")
-    train_ims = extract_features(get_train_image_paths())
+    extract_features(get_train_image_paths())
     logger.info("End: extract features from train images.")
-
-    # .h5
-    dd.io.save(BASE_PATH + 'dataset/vgg16/X_train_ims_VGG16.h5',
-               train_ims, compression=None)
-    logger.info('saved in \"X_train_ims_VGG16.h5\".')
 
 
 def save_val_features():
     """
-    extract features from validation images using VGG16 and save them as .h5 file.
+    extract features from validation images using VGG16 and save them as .npy file.
 
     """
+    dir = 'dataset/vgg16/val'
     logger.info("Start: extract features from val images.")
     val_ims = extract_features(get_val_image_paths())
     logger.info("End: extract features from val images.")
 
-    # .h5
-    dd.io.save(BASE_PATH + 'dataset/vgg16/X_val_ims_VGG16.h5',
-               val_ims, compression=None)
-    logger.info('saved in \"X_val_ims_VGG16.h5\".')
-
 
 def save_test_features():
     """
-    extract features from test images using VGG16 and save them as .h5 file.
+    extract features from test images using VGG16 and save them as .npy file.
 
     """
+    dir = 'dataset/vgg16/test'
     logger.info("Start: extract features from test images.")
     test_ims = extract_features(get_test_image_paths())
     logger.info("End: extract features from test images.")
-
-    # .h5
-    dd.io.save(BASE_PATH + 'dataset/vgg16/X_test_ims_VGG16.h5',
-               test_ims, compression=None)
-    logger.info('saved in \"X_test_ims_VGG16.h5\".')
 
 
 save_train_features()
