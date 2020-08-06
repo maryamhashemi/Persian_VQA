@@ -47,6 +47,27 @@ def read_image_paths(dir_path):
     return ims
 
 
+def read_feature_paths(dir_path):
+    """
+    read the path of image features in 'dir_path' and return a dictionary mapping image_id to image feature path.
+
+    Arguments:
+    dir_path -- a directory that consists of image features.
+
+    Return:
+    ims -- a dictionary that maps image_id to image feature path.
+
+    """
+    ims = {}
+
+    for filename in os.listdir(dir_path):
+        if filename.endswith('.npy'):
+            image_id = int(re.findall('\d+', filename)[0])
+            ims[image_id] = os.path.join(dir_path, filename)
+
+    return ims
+
+
 def load_and_proccess_image(image_path, model, image_size):
     """
     load and preprocess image, then extract features using model.
@@ -105,6 +126,18 @@ def get_val_image_paths():
 
 def get_test_image_paths():
     return read_image_paths(IMAGE_TEST_PATH)
+
+
+def get_train_img_feature_paths():
+    return read_feature_paths(IMG_FEATURE_TRAIN_PATH)
+
+
+def get_val_img_feature_paths():
+    return read_image_paths(IMG_FEATURE_VAL_PATH)
+
+
+def get_test_img_feature_paths():
+    return read_image_paths(IMG_FEATURE_TEST_PATH)
 
 
 def save_train_features():

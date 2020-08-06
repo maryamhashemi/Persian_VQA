@@ -7,6 +7,11 @@ IMAGE_TRAIN_PATH = os.path.join(BASE_PATH, 'dataset/train2014')
 IMAGE_VAL_PATH = os.path.join(BASE_PATH, 'dataset/val2014')
 IMAGE_TEST_PATH = os.path.join(BASE_PATH, 'dataset/test2015')
 
+# Image feature path
+IMG_FEATURE_TRAIN_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/train')
+IMG_FEATURE_VAL_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/val')
+IMG_FEATURE_TEST_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/test')
+
 # Question path (Google translation)
 GOOGLE_QUESTION_TRAIN_PATH = os.path.join(
     BASE_PATH, 'dataset/google/google-train.json')
@@ -47,4 +52,5 @@ VOCAB_SIZE = 1000
 NUM_FILTERS = [256, 256, 512]
 FILTER_SIZE = [1, 2, 3]
 ATTENTION_DIM = 301
+NUM_CLASSES = 1000
 OOV_TOK = "<OOV>"
