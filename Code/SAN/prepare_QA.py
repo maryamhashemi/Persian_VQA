@@ -168,19 +168,17 @@ def get_train_val_label(train_data, val_data):
     return ans_vocab, train_Y, val_Y
 
 
-def preprocess_question(train_qs, val_qs, test_qs):
+def preprocess_question(train_qs, val_qs):
     """
     tokenize questions. Convert the tokenized questions into sequences and then pad sequences.
 
     Arguments:
     train_qs -- a list of training questions.
     val_qs -- a list of validatin questions. 
-    test_qs -- a list of testing questions.
 
     Return:
     train_X_seqs -- a numpy array that has shape of (number of training example, SEQ_LENGTH).
     val_X_seqs --  a numpy array that has shape of (number of validation example, SEQ_LENGTH).
-    test_X_seqs --  a numpy array that has shape of (number of testing example, SEQ_LENGTH).
     """
 
     tokenizer = Tokenizer(num_words=VOCAB_SIZE, oov_token=OOV_TOK)
@@ -200,10 +198,4 @@ def preprocess_question(train_qs, val_qs, test_qs):
     val_X_seqs = np.array(val_X_seqs)
     logger.info("convert validation questions to sequences.")
 
-    # prepare test sequence
-    test_X_seqs = tokenizer.texts_to_sequences(test_qs)
-    test_X_seqs = pad_sequences(test_X_seqs, maxlen=SEQ_LENGTH, padding='post')
-    test_X_seqs = np.array(test_X_seqs)
-    logger.info("convert test questions to sequences.")
-
-    return train_X_seqs, val_X_seqs, test_X_seqs
+    return train_X_seqs, val_X_seqs

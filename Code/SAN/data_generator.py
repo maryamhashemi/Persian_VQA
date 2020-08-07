@@ -17,14 +17,13 @@ logger.addHandler(file_handler)
 
 class DataGenerator(Sequence):
 
-    def __init__(self, questions, image_ids, image_path, answers, batch_size, n_classes, shuffle=True):
+    def __init__(self, questions, image_ids, image_path, answers, batch_size, shuffle=True):
 
         self.questions = questions
         self.image_ids = image_ids
         self.image_path = image_path
         self.answers = answers
         self.batch_size = batch_size
-        self.n_classes = n_classes
         self.shuffle = shuffle
         self.on_epoch_end()
 
@@ -77,4 +76,4 @@ class DataGenerator(Sequence):
             y[i] = self.answers[i]
 
         logger.info("create one batch of data.")
-        return [x_seqs, x_ims], to_categorical(y, num_classes=self.n_classes)
+        return [x_seqs, x_ims], y

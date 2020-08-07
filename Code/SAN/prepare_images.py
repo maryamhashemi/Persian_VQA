@@ -173,6 +173,6 @@ def save_test_features():
     logger.info("End: extract features from test images.")
 
 
-save_train_features()
-save_val_features()
-save_test_features()
+# save_train_features()
+# save_val_features()
+# save_test_features()
