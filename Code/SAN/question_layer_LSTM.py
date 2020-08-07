@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Dense, Embedding, LSTM, Dropout
 
 class question_layer_LSTM(Model):
 
-    def __init__(self, num_words, embedding_dim, dropout_rate, seq_length ** kwargs):
+    def __init__(self, num_words, embedding_dim, dropout_rate, seq_length, ** kwargs):
         super(question_layer_LSTM, self).__init__(**kwargs)
 
         self.embedding = Embedding(
