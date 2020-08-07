@@ -49,7 +49,7 @@ def Train():
     history = model.fit_generator(generator=train_generator,
                                   epochs=EPOCHS,
                                   callbacks=[checkpoint],
-                                  validattion=val_generator,
+                                  validation=val_generator,
                                   use_multiprocessing=True,
                                   workers=6)
 
