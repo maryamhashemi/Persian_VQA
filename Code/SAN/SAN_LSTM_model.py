@@ -1,7 +1,7 @@
 from constants import *
 from image_layer import *
-from data_generator import *
 from attention_layer import *
+from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input
