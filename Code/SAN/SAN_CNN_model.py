@@ -1,5 +1,6 @@
 from constants import *
 from image_layer import *
+from data_generator import *
 from attention_layer import *
 from question_layer_CNN import *
 from tensorflow.keras.models import Model
@@ -39,10 +40,10 @@ def Train():
                   metrics=['accuracy'])
 
     model.summary()
-    history = model.fit([train_X_seqs, train_X_ims],
-                        train_Y,
-                        epochs=EPOCHS,
-                        batch_size=BATCH_SIZE,
-                        validation_data=([val_X_seqs, val_X_ims], val_Y),
-                        callbacks=[checkpoint])
+    history = model.fit_generator(generator=train_generator,
+                                  epochs=EPOCHS,
+                                  callbacks=[checkpoint],
+                                  validattion=val_generator,
+                                  use_multiprocessing=True,
+                                  workers=6)
     return history

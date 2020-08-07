@@ -1,7 +1,7 @@
-from data_generator import *
 from constants import *
 from prepare_QA import *
 from prepare_images import *
+from data_generator import *
 
 # Google translation
 train_data = get_QA(GOOGLE_QUESTION_TRAIN_PATH, GOOGLE_ANNOTATION_TRAIN_PATH)
