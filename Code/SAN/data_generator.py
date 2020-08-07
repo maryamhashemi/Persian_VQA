@@ -46,7 +46,7 @@ class DataGenerator(Sequence):
         # Generate data
         [x_seqs, x_ims], y = self.__data_generation(indexes)
 
-        logger.info("get %i/%i batches of data." % (index+1, self.__len__))
+        logger.info("get %i/%i batches of data." % (index+1, self.__len__()))
         return [x_seqs, x_ims], y
 
     def on_epoch_end(self):
