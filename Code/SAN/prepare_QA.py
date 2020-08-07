@@ -167,7 +167,7 @@ def get_train_val_label(train_data, val_data):
     logger.info("Shape of Answer Vectors in training Data: " +
                 str(train_Y.shape))
     logger.info("Shape of Answer Vectors in validation Data: " +
-                str(train_Y.shape))
+                str(val_Y.shape))
 
     return ans_vocab, train_Y, val_Y
 
