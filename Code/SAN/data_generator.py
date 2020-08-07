@@ -67,13 +67,13 @@ class DataGenerator(Sequence):
         x_ims = np.empty((self.batch_size, 512, 14, 14))
         y = np.empty((self.batch_size), dtype=int)
 
-        for i in indexes:
+        for i, idx in enumerate(indexes):
             # Store sample
-            x_seqs[i] = self.questions[i]
-            x_ims[i] = np.load(self.image_path[self.image_ids[i]])
+            x_seqs[i] = self.questions[idx]
+            x_ims[i] = np.load(self.image_path[self.image_ids[idx]])
 
             # Store class
-            y[i] = self.answers[i]
+            y[i] = self.answers[idx]
 
         logger.info("create one batch of data.")
         return [x_seqs, x_ims], y
