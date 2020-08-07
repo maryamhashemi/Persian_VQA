@@ -3,6 +3,17 @@ from prepare_QA import *
 from prepare_images import *
 from data_generator import *
 
+# logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
+
+file_handler = logging.FileHandler('prepare_generator.log')
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+
 
 def get_generator():
 
@@ -26,10 +37,14 @@ def get_generator():
 
     # apply preprocessing on questions
     train_seqs, val_seqs = preprocess_question(train_questions, val_questions)
+    logger.info("shape of train_seqs is" + str(train_seqs.shape))
+    logger.info("shape of val_seqs is" + str(val_seqs.shape))
 
     # get iamge ids
     train_image_ids = train_data["image_id"].values
     val_image_ids = val_data["image_id"].values
+    logger.info("shape of train_image_ids is" + str(train_image_ids.shape))
+    logger.info("shape of val_image_ids is" + str(val_image_ids.shape))
 
     # get image feature paths
     train_image_path = get_train_img_feature_paths()

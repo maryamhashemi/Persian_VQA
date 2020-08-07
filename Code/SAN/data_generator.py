@@ -53,7 +53,6 @@ class DataGenerator(Sequence):
         """
         Updates indexes after each epoch'
         """
-
         self.indexes = np.arange(len(self.questions))
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
