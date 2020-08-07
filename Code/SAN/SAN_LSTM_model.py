@@ -50,3 +50,6 @@ def Train():
                                   workers=6)
 
     return history
+
+
+Train()
