@@ -1,6 +1,7 @@
 import json
 import heapq
 import logging
+import numpy as np
 import pandas as pd
 from constants import *
 from sklearn.preprocessing import LabelBinarizer
