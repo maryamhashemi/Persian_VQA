@@ -33,8 +33,11 @@ def SAN_CNN(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
 def Train():
     checkpoint = ModelCheckpoint('model_SAN_LSTM_2.h5', save_best_only=True)
 
-    model = SAN_CNN(NUM_CLASSES, DROPOUT_RATE, VOCAB_SIZE,
-                    EMBEDDING_DIM, ATTENTION_DIM)
+    model = SAN_CNN(NUM_CLASSES,
+                    DROPOUT_RATE,
+                    VOCAB_SIZE,
+                    EMBEDDING_DIM,
+                    ATTENTION_DIM)
 
     model.compile(optimizer='sgd',
                   loss='categorical_crossentropy',

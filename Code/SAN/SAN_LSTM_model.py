@@ -34,7 +34,7 @@ def Train():
     checkpoint = ModelCheckpoint('model_SAN_LSTM_2.h5', save_best_only=True)
 
     model = SAN_LSTM(NUM_CLASSES,
-                     DROPOUT,
+                     DROPOUT_RATE,
                      VOCAB_SIZE,
                      EMBEDDING_DIM,
                      ATTENTION_DIM)
