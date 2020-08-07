@@ -65,7 +65,7 @@ class DataGenerator(Sequence):
         """
         x_seqs = np.empty((self.batch_size, SEQ_LENGTH))
         x_ims = np.empty((self.batch_size, 512, 14, 14))
-        y = np.empty((self.batch_size), dtype=int)
+        y = np.empty((self.batch_size, NUM_CLASSES), dtype=int)
 
         for i, idx in enumerate(indexes):
             # Store sample
