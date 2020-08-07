@@ -5,6 +5,7 @@ from attention_layer import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 
 def SAN_LSTM(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):

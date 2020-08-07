@@ -5,6 +5,7 @@ from attention_layer import *
 from question_layer_CNN import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import, Dense, Input
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 
 def SAN_CNN(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
