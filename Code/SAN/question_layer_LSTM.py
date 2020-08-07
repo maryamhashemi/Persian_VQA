@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import, Dense, Embedding, LSTM, Dropout
+from tensorflow.keras.layers import Dense, Embedding, LSTM, Dropout
 
 
 class question_layer_LSTM(Model):
