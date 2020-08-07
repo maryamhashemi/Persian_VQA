@@ -43,6 +43,9 @@ def Train():
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
     model.summary()
+
+    train_generator, val_generator = get_generator()
+
     history = model.fit_generator(generator=train_generator,
                                   epochs=EPOCHS,
                                   callbacks=[checkpoint],
