@@ -14,7 +14,7 @@ def get_generator():
     # choose top k frequent answers.
     train_answers = train_data["multiple_choice_answer"].values
     answer_frequency = get_answer_frequency(train_answers)
-    k_frequent_answer = get_k_top_answers(k=NUM_CLASSES, answer_frequency)
+    k_frequent_answer = get_k_top_answers(NUM_CLASSES, answer_frequency)
 
     # filter data
     train_data = filter_questions(k_frequent_answer, train_data)
