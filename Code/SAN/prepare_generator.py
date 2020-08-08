@@ -49,8 +49,8 @@ def get_generator():
     # get image feature paths
     train_image_path = get_train_img_feature_paths()
     val_image_path = get_val_img_feature_paths()
-    logger.info("shape of train_image_path is" + str(train_image_path.shape))
-    logger.info("shape of val_image_path is" + str(val_image_path.shape))
+    logger.info("shape of train_image_path is" + str(len(train_image_path)))
+    logger.info("shape of val_image_path is" + str(len(val_image_path)))
 
     # get answers
     _, train_answers, val_answers = get_train_val_label(train_data, val_data)
