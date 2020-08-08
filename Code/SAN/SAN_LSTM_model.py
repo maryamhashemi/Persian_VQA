@@ -31,7 +31,7 @@ def SAN_LSTM(num_classes, dropout_rate, num_words, embedding_dim, attention_dim)
 
 def Train():
 
-    checkpoint = ModelCheckpoint('/checkpoint', save_best_only=True)
+    checkpoint = ModelCheckpoint('checkpoint', save_best_only=True)
 
     model = SAN_LSTM(NUM_CLASSES,
                      DROPOUT_RATE,
