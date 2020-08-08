@@ -163,7 +163,7 @@ def get_train_val_label(train_data, val_data):
 
     ans_vocab = {l: i for i, l in enumerate(label_encoder.classes_)}
 
-    logger.info("Number of clasess: ", len(ans_vocab))
+    logger.info("Number of clasess: " + str(len(ans_vocab)))
     logger.info("Shape of Answer Vectors in training Data: " +
                 str(train_Y.shape))
     logger.info("Shape of Answer Vectors in validation Data: " +
