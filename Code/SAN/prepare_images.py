@@ -60,11 +60,15 @@ def read_feature_paths(dir_path):
     """
     ims = {}
 
+    logger.info("number of files in directory" +
+                dir_path + str(len(os.listdir(dir_path))))
+
     for filename in os.listdir(dir_path):
         if filename.endswith('.npy'):
             image_id = int(re.findall('\d+', filename)[0])
             ims[image_id] = os.path.join(dir_path, filename)
 
+    logger.info("number of paths : " + str(len(ims)))
     return ims
 
 
