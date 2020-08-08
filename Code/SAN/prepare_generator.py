@@ -12,7 +12,10 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
 file_handler = logging.FileHandler('prepare_generator.log')
 file_handler.setFormatter(formatter)
 
+stream_handler = logging.StreamHandler()
+
 logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 
 
 def get_generator():
@@ -49,8 +52,8 @@ def get_generator():
     # get image feature paths
     train_image_path = get_train_img_feature_paths()
     val_image_path = get_val_img_feature_paths()
-    logger.info("shape of train_image_path is" + str(len(train_image_path)))
-    logger.info("shape of val_image_path is" + str(len(val_image_path)))
+    logger.info("shape of train_image_path is " + str(len(train_image_path)))
+    logger.info("shape of val_image_path is " + str(len(val_image_path)))
 
     # get answers
     _, train_answers, val_answers = get_train_val_label(train_data, val_data)
