@@ -31,7 +31,7 @@ def SAN_LSTM(num_classes, dropout_rate, num_words, embedding_dim, attention_dim)
 
 def Train():
 
-    checkpoint = ModelCheckpoint('model_SAN_LSTM_2.h5', save_best_only=True)
+    checkpoint = ModelCheckpoint('/checkpoint', save_best_only=True)
 
     model = SAN_LSTM(NUM_CLASSES,
                      DROPOUT_RATE,
@@ -46,12 +46,12 @@ def Train():
 
     train_generator, val_generator = get_generator()
 
-    history = model.fit_generator(generator=train_generator,
-                                  epochs=EPOCHS,
-                                  callbacks=[checkpoint],
-                                  validation_data=val_generator,
-                                  use_multiprocessing=True,
-                                  workers=6)
+    history = model.fit(x=train_generator,
+                        epochs=EPOCHS,
+                        callbacks=[checkpoint],
+                        validation_data=val_generator,
+                        use_multiprocessing=True,
+                        workers=6)
 
     return history
 

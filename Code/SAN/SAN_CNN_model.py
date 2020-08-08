@@ -47,10 +47,10 @@ def Train():
 
     train_generator, val_generator = get_generator()
 
-    history = model.fit_generator(generator=train_generator,
-                                  epochs=EPOCHS,
-                                  callbacks=[checkpoint],
-                                  validation_data=val_generator,
-                                  use_multiprocessing=True,
-                                  workers=6)
+    history = model.fit(x=train_generator,
+                        epochs=EPOCHS,
+                        callbacks=[checkpoint],
+                        validation_data=val_generator,
+                        use_multiprocessing=True,
+                        workers=6)
     return history
