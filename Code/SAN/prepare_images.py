@@ -60,15 +60,11 @@ def read_feature_paths(dir_path):
     """
     ims = {}
 
-    logger.info("number of files in directory" +
-                dir_path + str(len(os.listdir(dir_path))))
-
     for filename in os.listdir(dir_path):
         if filename.endswith('.npy'):
             image_id = int(re.findall('\d+', filename)[0])
             ims[image_id] = os.path.join(dir_path, filename)
 
-    logger.info("number of paths : " + str(len(ims)))
     return ims
 
 
@@ -137,11 +133,11 @@ def get_train_img_feature_paths():
 
 
 def get_val_img_feature_paths():
-    return read_image_paths(IMG_FEATURE_VAL_PATH)
+    return read_feature_paths(IMG_FEATURE_VAL_PATH)
 
 
 def get_test_img_feature_paths():
-    return read_image_paths(IMG_FEATURE_TEST_PATH)
+    return read_feature_paths(IMG_FEATURE_TEST_PATH)
 
 
 def save_train_features():
