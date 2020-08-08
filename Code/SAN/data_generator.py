@@ -33,7 +33,7 @@ class DataGenerator(Sequence):
         Denotes the number of batches per epoch.
 
         """
-        return int(np.floor(self.questions.shape[0]) / self.batch_size))
+        return int(np.floor(self.questions.shape[0] / self.batch_size))
 
     def __getitem__(self, index):
         """
@@ -41,10 +41,10 @@ class DataGenerator(Sequence):
 
         """
         # Generate indexes of the batch
-        indexes=self.indexes[index*self.batch_size:(index+1)*self.batch_size]
+        indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
 
         # Generate data
-        [x_seqs, x_ims], y=self.__data_generation(indexes)
+        [x_seqs, x_ims], y = self.__data_generation(indexes)
 
         logger.info("get %i/%i batches of data." % (index+1, self.__len__()))
         return [x_seqs, x_ims], y
@@ -53,7 +53,7 @@ class DataGenerator(Sequence):
         """
         Updates indexes after each epoch'
         """
-        self.indexes=np.arange(self.__len__()*self.batch_size)
+        self.indexes = np.arange(self.__len__()*self.batch_size)
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
 
@@ -63,17 +63,17 @@ class DataGenerator(Sequence):
         """
         Generates data containing batch_size samples
         """
-        x_seqs=np.empty((self.batch_size, SEQ_LENGTH))
-        x_ims=np.empty((self.batch_size, 512, 14, 14))
-        y=np.empty((self.batch_size, NUM_CLASSES), dtype = int)
+        x_seqs = np.empty((self.batch_size, SEQ_LENGTH))
+        x_ims = np.empty((self.batch_size, 512, 14, 14))
+        y = np.empty((self.batch_size, NUM_CLASSES), dtype=int)
 
         for i, idx in enumerate(indexes):
             # Store sample
-            x_seqs[i]=self.questions[idx]
-            x_ims[i]=np.load(self.image_path[self.image_ids[idx]])
+            x_seqs[i] = self.questions[idx]
+            x_ims[i] = np.load(self.image_path[self.image_ids[idx]])
 
             # Store class
-            y[i]=self.answers[idx]
+            y[i] = self.answers[idx]
 
         logger.info("create one batch of data.")
         return [x_seqs, x_ims], y
