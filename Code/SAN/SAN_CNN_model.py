@@ -49,5 +49,6 @@ def Train():
 
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
-                        validation_data=val_generator)
+                        validation_data=val_generator,
+                        callbacks=[ModelCheckpoint])
     return history
