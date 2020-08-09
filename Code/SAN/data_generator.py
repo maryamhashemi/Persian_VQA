@@ -2,6 +2,7 @@ import logging
 import numpy as np
 from constants import *
 from tensorflow.keras.utils import Sequence
+from tensorflow.keras.utils import normalize
 from tensorflow.keras.utils import to_categorical
 
 # logging
@@ -70,7 +71,8 @@ class DataGenerator(Sequence):
         for i, idx in enumerate(indexes):
             # Store sample
             x_seqs[i] = self.questions[idx]
-            x_ims[i] = np.load(self.image_path[self.image_ids[idx]])
+            image = np.load(self.image_path[self.image_ids[idx]])
+            x_ims[i] = normalize(image, axis=0, order=2)
 
             # Store class
             y[i] = self.answers[idx]
