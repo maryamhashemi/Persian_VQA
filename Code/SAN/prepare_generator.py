@@ -18,12 +18,34 @@ logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
 
-def get_generator():
+def get_generator(google=True):
+    """
+    build training and validation generator.
 
-    # Google translation
-    train_data = get_QA(GOOGLE_QUESTION_TRAIN_PATH,
-                        GOOGLE_ANNOTATION_TRAIN_PATH)
-    val_data = get_QA(GOOGLE_QUESTION_VAL_PATH, GOOGLE_ANNOTATION_VAL_PATH)
+    Arguments:
+    google -- a boolean that indicates whether use Google or Targoman translation data.
+
+
+    Return:
+    train_generator -- a generator of training data.
+    val_generator -- a generator of validation data.
+
+    """
+
+    if google:
+        # Google translation
+        logger.info("use Google Translation.")
+        train_data = get_QA(GOOGLE_QUESTION_TRAIN_PATH,
+                            GOOGLE_ANNOTATION_TRAIN_PATH)
+        val_data = get_QA(GOOGLE_QUESTION_VAL_PATH,
+                          GOOGLE_ANNOTATION_VAL_PATH)
+    else:
+        # Targoman translation
+        logger.info("use Targoman Translation.")
+        train_data = get_QA(TARGOMAN_QUESTION_TRAIN_PATH,
+                            TARGOMAN_ANNOTATION_TRAIN_PATH)
+        val_data = get_QA(TARGOMAN_QUESTION_VAL_PATH,
+                          TARGOMAN_ANNOTATION_VAL_PATH)
 
     # choose top k frequent answers.
     train_answers = train_data["multiple_choice_answer"].values
@@ -32,7 +54,6 @@ def get_generator():
 
     # filter data
     train_data = filter_questions(k_frequent_answer, train_data)
-    val_data = filter_questions(k_frequent_answer, val_data)
 
     # get questions
     train_questions = train_data["question"].values
@@ -63,11 +84,13 @@ def get_generator():
                                     train_image_path,
                                     train_answers,
                                     BATCH_SIZE)
+    logger.info("successfully build train generator")
 
     val_generator = DataGenerator(val_seqs,
                                   val_image_ids,
                                   val_image_path,
                                   val_answers,
                                   BATCH_SIZE)
+    logger.info("successfully build val generator")
 
     return train_generator, val_generator
