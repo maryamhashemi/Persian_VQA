@@ -8,7 +8,7 @@ from tensorflow.keras.layers import, Dense, Input
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 
-def SAN_CNN(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
+def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
 
     qs_input = Input(shape=(SEQ_LENGTH,))
     img_input = Input(shape=(512, 14, 14))
@@ -30,7 +30,19 @@ def SAN_CNN(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
     return model
 
 
-def Train():
+def Train(google=True):
+    """
+    Train SAN_CNN_2  with 2 attention layer.
+    """
+
+    train_generator, val_generator = get_generator(google)
+
+    if google:
+        checkpoint_path = 'checkpoint\SAN_CNN_2_google.h5'
+    else:
+        checkpoint_path = 'checkpoint\SAN_CNN_2_targoman.h5'
+
+    checkpoint = ModelCheckpoint(checkpoint_path, save_best_only=True)
     checkpoint = ModelCheckpoint('/checkpoint', save_best_only=True)
 
     model = SAN_CNN(NUM_CLASSES,
@@ -38,17 +50,20 @@ def Train():
                     VOCAB_SIZE,
                     EMBEDDING_DIM,
                     ATTENTION_DIM)
-
-    model.compile(optimizer='sgd',
+    optimizer = SGD(learning_rate=LR, momentum=0.9)
+    model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
     model.summary()
 
-    train_generator, val_generator = get_generator()
-
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
                         validation_data=val_generator,
                         callbacks=[ModelCheckpoint])
+    # save history
     return history
+
+
+Train(google=True)
+# Train(google=False)
