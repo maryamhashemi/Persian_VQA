@@ -6,6 +6,7 @@ from question_layer_LSTM import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.optimizers import SGD
 
 
 def SAN_LSTM(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
@@ -39,6 +40,7 @@ def Train():
                      EMBEDDING_DIM,
                      ATTENTION_DIM)
 
+    optimizer = SGD(learning_rate=, momentum=0.9)
     model.compile(optimizer='sgd',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
