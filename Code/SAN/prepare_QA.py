@@ -59,8 +59,7 @@ def shuffle_data(data):
     data -- shuffled version of the input data
 
     """
-    np.random.seed(123)
-    np.random.shuffle(data)
+    data = data.sample(frac=1, random_state=123)
     logger.info("successfully shuffle data.")
     return data
 
