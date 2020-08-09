@@ -4,7 +4,7 @@ from attention_layer import *
 from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import SGD
 
@@ -22,7 +22,7 @@ def SAN_LSTM(num_classes, dropout_rate, num_words, embedding_dim, attention_dim)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
     att = attention_layer(attention_dim)([image_embed, att])
-
+    att = Dropout(dropout_rate)(att)
     output = Dense(num_classes, activation='softmax')(att)
 
     model = Model(inputs=[qs_input, img_input], outputs=output)
