@@ -100,7 +100,6 @@ def extract_features(paths, dir):
     paths -- a dictionary that maps image_ids to image paths.
     dir -- a directoty path to save features.
 
-
     """
     base_model = VGG16(include_top=False, weights='imagenet')
     model = Model(inputs=base_model.input,

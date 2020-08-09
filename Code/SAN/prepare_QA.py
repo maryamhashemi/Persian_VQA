@@ -1,4 +1,5 @@
 import json
+import hazm
 import heapq
 import logging
 import numpy as np
@@ -43,7 +44,7 @@ def merge_QA(questions, annotations):
     QA = pd.merge(questions, annotations,  how='inner', left_on=[
         'image_id', 'question_id'], right_on=['image_id', 'question_id'])
 
-    logger.info("merge questions and answers.")
+    logger.info("successfully merge questions and answers.")
     return QA
 
 
@@ -61,11 +62,11 @@ def get_QA(questions_path, annotations_path):
     """
     questions = json.load(open(questions_path, encoding='utf-8'))
     questions = questions["questions"]
-    logger.info("load questions.")
+    logger.info("successfully load questions.")
 
     annotations = json.load(open(annotations_path, encoding='utf-8'))
     annotations = annotations["annotations"]
-    logger.info("load annotations.")
+    logger.info("successfully load annotations.")
 
     QA = merge_QA(questions, annotations)
     logger.info("total number of data is %i ." % (len(QA)))
@@ -91,7 +92,7 @@ def get_answer_frequency(answers):
         else:
             answer_frequency[answer] = 1
 
-    logger.info("calculate all answer frequencies.")
+    logger.info("successfully calculate all answer frequencies.")
     return answer_frequency
 
 
@@ -111,7 +112,7 @@ def get_k_top_answers(k, answer_frequency):
                                         answer_frequency,
                                         key=answer_frequency.get)
 
-    logger.info("choose the top k most frequent answers.")
+    logger.info("successfully choose the top k most frequent answers.")
     return k_frequent_answers
 
 
@@ -133,7 +134,7 @@ def filter_questions(k_frequent_answers, data):
     filtered_data = data[data['multiple_choice_answer'].apply(
         lambda x:len(x) > 0)]
 
-    logger.info("remove the questions from data.")
+    logger.info("successfully remove the questions from data.")
     return filtered_data
 
 
@@ -155,11 +156,11 @@ def get_train_val_label(train_data, val_data):
 
     train_Y = label_encoder.fit_transform(
         train_data['multiple_choice_answer'].apply(lambda x: x).values)
-    logger.info("get train labels.")
+    logger.info("successfully get train labels.")
 
     val_Y = label_encoder.transform(
         val_data['multiple_choice_answer'].apply(lambda x: x).values)
-    logger.info("get val labels.")
+    logger.info("successfully get val labels.")
 
     ans_vocab = {l: i for i, l in enumerate(label_encoder.classes_)}
 
@@ -183,7 +184,12 @@ def preprocess_question(train_qs, val_qs):
     Return:
     train_X_seqs -- a numpy array that has shape of (number of training example, SEQ_LENGTH).
     val_X_seqs --  a numpy array that has shape of (number of validation example, SEQ_LENGTH).
+
     """
+    # normalize data
+    normalizer = hazm.Normalizer()
+    train_qs = [normalizer.normalize(item) for item in train_qs]
+    val_qs = [normalizer.normalize(item) for item in val_qs]
 
     tokenizer = Tokenizer(num_words=VOCAB_SIZE, oov_token=OOV_TOK)
     word_index = tokenizer.word_index
