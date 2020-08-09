@@ -71,11 +71,11 @@ class DataGenerator(Sequence):
         for i, idx in enumerate(indexes):
             # Store sample
             x_seqs[i] = self.questions[idx]
-            image = np.load(self.image_path[self.image_ids[idx]])
-            x_ims[i] = normalize(image, axis=0, order=2)
+            x_ims[i] = np.load(self.image_path[self.image_ids[idx]])
 
             # Store class
             y[i] = self.answers[idx]
 
+        x_ims = normalize(x_ims, axis=0, order=2)
         logger.info("create one batch of data.")
         return [x_seqs, x_ims], y
