@@ -192,13 +192,13 @@ def preprocess_question(train_qs, val_qs):
     # prepare train sequence
     train_X_seqs = tokenizer.texts_to_sequences(train_qs)
     train_X_seqs = pad_sequences(
-        train_X_seqs, maxlen=SEQ_LENGTH, padding='post')
+        train_X_seqs, maxlen=SEQ_LENGTH, padding='pre')
     train_X_seqs = np.array(train_X_seqs)
     logger.info("convert train questions to sequences.")
 
     # prepare val sequence
     val_X_seqs = tokenizer.texts_to_sequences(val_qs)
-    val_X_seqs = pad_sequences(val_X_seqs, maxlen=SEQ_LENGTH, padding='post')
+    val_X_seqs = pad_sequences(val_X_seqs, maxlen=SEQ_LENGTH, padding='pre')
     val_X_seqs = np.array(val_X_seqs)
     logger.info("convert validation questions to sequences.")
 
