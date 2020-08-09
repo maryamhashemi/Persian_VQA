@@ -1,12 +1,13 @@
+import json
 from constants import *
 from image_layer import *
 from attention_layer import *
 from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.callbacks import ModelCheckpoint
-from tensorflow.keras.optimizers import SGD
 
 
 def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
@@ -40,9 +41,11 @@ def Train(google=True):
     train_generator, val_generator = get_generator(google)
 
     if google:
-        checkpoint_path = 'checkpoint\SAN_LSTM_2_google.h5'
+        checkpoint_path = 'checkpoint/SAN_LSTM_2_google.h5'
+        history_path = '/trainHistoryDict/SAN_LSTM_2_google.json'
     else:
-        checkpoint_path = 'checkpoint\SAN_LSTM_2_targoman.h5'
+        checkpoint_path = 'checkpoint/SAN_LSTM_2_targoman.h5'
+        history_path = '/trainHistoryDict/SAN_LSTM_2_targoman.json'
 
     checkpoint = ModelCheckpoint(checkpoint_path, save_best_only=True)
 
@@ -62,7 +65,11 @@ def Train(google=True):
                         epochs=EPOCHS,
                         validation_data=val_generator,
                         callbacks=[checkpoint])
+
     # save history
+    with open(history_path, 'w') as file:
+        json.dump(history.history, file)
+
     return history
 
 

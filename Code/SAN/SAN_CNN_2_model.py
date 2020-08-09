@@ -1,3 +1,4 @@
+import json
 from constants import *
 from image_layer import *
 from attention_layer import *
@@ -38,9 +39,11 @@ def Train(google=True):
     train_generator, val_generator = get_generator(google)
 
     if google:
-        checkpoint_path = 'checkpoint\SAN_CNN_2_google.h5'
+        checkpoint_path = 'checkpoint/SAN_CNN_2_google.h5'
+        history_path = '/trainHistoryDict/SAN_CNN_2_google.json'
     else:
-        checkpoint_path = 'checkpoint\SAN_CNN_2_targoman.h5'
+        checkpoint_path = 'checkpoint/SAN_CNN_2_targoman.h5'
+        history_path = '/trainHistoryDict/SAN_CNN_2_targoman.json'
 
     checkpoint = ModelCheckpoint(checkpoint_path, save_best_only=True)
     checkpoint = ModelCheckpoint('/checkpoint', save_best_only=True)
@@ -62,6 +65,9 @@ def Train(google=True):
                         validation_data=val_generator,
                         callbacks=[ModelCheckpoint])
     # save history
+    with open(history_path, 'w') as file:
+        json.dump(history.history, file)
+
     return history
 
 
