@@ -48,6 +48,23 @@ def merge_QA(questions, annotations):
     return QA
 
 
+def shuffle_data(data):
+    """
+    shuffle the input data.
+
+    Arguments:
+    data -- a dataframe that consists of questions and answers.
+
+    Return:
+    data -- shuffled version of the input data
+
+    """
+    np.random.seed(123)
+    np.random.shuffle(data)
+    logger.info("successfully shuffle data.")
+    return data
+
+
 def get_QA(questions_path, annotations_path):
     """
     load question and annotation files and merge their contents and return the merged data as a dataframe.
@@ -69,6 +86,7 @@ def get_QA(questions_path, annotations_path):
     logger.info("successfully load annotations.")
 
     QA = merge_QA(questions, annotations)
+    QA = shuffle_data(QA)
     logger.info("total number of data is %i ." % (len(QA)))
     return QA
 

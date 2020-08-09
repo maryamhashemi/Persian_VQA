@@ -76,5 +76,5 @@ class DataGenerator(Sequence):
             # Store class
             y[i] = self.answers[idx]
 
-        logger.info("create one batch of data.")
+        logger.info("successfully create one batch of data.")
         return [x_seqs, x_ims], y
