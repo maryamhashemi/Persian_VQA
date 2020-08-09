@@ -40,8 +40,8 @@ def Train():
                      EMBEDDING_DIM,
                      ATTENTION_DIM)
 
-    optimizer = SGD(learning_rate=, momentum=0.9)
-    model.compile(optimizer='sgd',
+    optimizer = SGD(learning_rate=LR, momentum=0.9)
+    model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
     model.summary()
