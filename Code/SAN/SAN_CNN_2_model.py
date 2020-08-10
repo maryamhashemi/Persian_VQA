@@ -61,8 +61,7 @@ def Train(google=True):
                                    decay_steps=10000,
                                    decay_rate=0.99997592083)
 
-    optimizer = tf.keras.optimizers.Adam(
-        learning_rate=lr_schedule, clipnorm=10)
+    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',

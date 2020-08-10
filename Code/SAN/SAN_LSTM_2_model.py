@@ -59,10 +59,10 @@ def Train(google=True):
                        ATTENTION_DIM)
 
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
-                                    decay_steps=10000,
-                                    decay_rate=0.99997592083)
+                                   decay_steps=10000,
+                                   decay_rate=0.99997592083)
 
-   optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule, clipnorm=10)
+    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
