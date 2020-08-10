@@ -5,9 +5,10 @@ from attention_layer import *
 from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import SGD
-from tensorflow.keras.layers import Dense, Input, Dropout
+from tensorflow.keras.optimizers import SGD, Adam
 from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.layers import Dense, Input, Dropout
+from tensorflow.keras.optimizers.schedules import ExponentialDecay
 
 
 def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
@@ -42,10 +43,10 @@ def Train(google=True):
 
     if google:
         checkpoint_path = 'checkpoint/SAN_LSTM_2_google/cp-{epoch:04d}.ckpt'
-        history_path = '/trainHistoryDict/SAN_LSTM_2_google.json'
+        history_path = 'trainHistoryDict/SAN_LSTM_2_google.json'
     else:
         checkpoint_path = 'checkpoint/SAN_LSTM_2_targoman/cp-{epoch:04d}.ckpt'
-        history_path = '/trainHistoryDict/SAN_LSTM_2_targoman.json'
+        history_path = 'trainHistoryDict/SAN_LSTM_2_targoman.json'
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  save_weights_only=True,
@@ -57,7 +58,12 @@ def Train(google=True):
                        EMBEDDING_DIM,
                        ATTENTION_DIM)
 
-    optimizer = SGD(learning_rate=LR, momentum=0.9)
+    lr_schedule = ExponentialDecay(initial_learning_rate=LR,
+                                    decay_steps=10000,
+                                    decay_rate=0.99997592083)
+
+   optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule, clipnorm=10)
+
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
