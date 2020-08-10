@@ -129,7 +129,7 @@ def get_k_top_answers(k, answer_frequency):
                                         answer_frequency,
                                         key=answer_frequency.get)
 
-    logger.info("successfully choose the top k most frequent answers.")
+    logger.info("successfully choose the top %i most frequent answers." % (k))
     return k_frequent_answers
 
 
