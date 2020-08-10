@@ -47,8 +47,7 @@ def Train(google=True):
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  save_weights_only=True,
-                                 verbose=1,
-                                 save_freq=2)
+                                 verbose=1)
 
     model = SAN_CNN(NUM_CLASSES,
                     DROPOUT_RATE,

@@ -49,8 +49,7 @@ def Train(google=True):
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  save_weights_only=True,
-                                 verbose=1,
-                                 save_freq=1)
+                                 verbose=1)
 
     model = SAN_LSTM_2(NUM_CLASSES,
                        DROPOUT_RATE,
