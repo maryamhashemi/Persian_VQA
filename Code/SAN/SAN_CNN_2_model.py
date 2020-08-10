@@ -39,14 +39,16 @@ def Train(google=True):
     train_generator, val_generator = get_generator(google)
 
     if google:
-        checkpoint_path = 'checkpoint/SAN_CNN_2_google.h5'
+        checkpoint_path = 'checkpoint/SAN_CNN_2_google/cp-{epoch:04d}.ckpt'
         history_path = '/trainHistoryDict/SAN_CNN_2_google.json'
     else:
-        checkpoint_path = 'checkpoint/SAN_CNN_2_targoman.h5'
+        checkpoint_path = 'checkpoint/SAN_CNN_2_targoman/cp-{epoch:04d}.ckpt'
         history_path = '/trainHistoryDict/SAN_CNN_2_targoman.json'
 
-    checkpoint = ModelCheckpoint(checkpoint_path, save_best_only=True)
-    checkpoint = ModelCheckpoint('/checkpoint', save_best_only=True)
+    checkpoint = ModelCheckpoint(checkpoint_path,
+                                 save_weights_only=True,
+                                 verbose=1,
+                                 save_freq=2)
 
     model = SAN_CNN(NUM_CLASSES,
                     DROPOUT_RATE,
@@ -59,6 +61,9 @@ def Train(google=True):
                   metrics=['accuracy'])
 
     model.summary()
+
+    # Save the weights using the `checkpoint_path` format
+    model.save_weights(checkpoint_path.format(epoch=0))
 
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
