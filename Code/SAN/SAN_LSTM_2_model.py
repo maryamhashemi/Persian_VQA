@@ -84,5 +84,13 @@ def Train(google=True):
     return history
 
 
-Train(google=True)
+# Train(google=True)
 # Train(google=False)
+
+model = SAN_LSTM_2(NUM_CLASSES,
+                   DROPOUT_RATE,
+                   VOCAB_SIZE,
+                   EMBEDDING_DIM,
+                   ATTENTION_DIM)
+
+model.summary()
