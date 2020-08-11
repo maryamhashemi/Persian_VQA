@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Conv1D, Embedding, Dropout, Concatenate, Glo
 
 class question_layer_CNN(Model):
 
-    def __init__(self, num_words, embedding_dim, filter_size, num_filters, seq_length, dropout_rate ** kwargs):
+    def __init__(self, num_words, embedding_dim, filter_size, num_filters, seq_length, dropout_rate, ** kwargs):
 
         super(question_layer_CNN, self).__init__(**kwargs)
 
