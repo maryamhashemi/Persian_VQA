@@ -81,5 +81,7 @@ class DataGenerator(Sequence):
             x_ims, (-1, x_ims.shape[1], x_ims.shape[2]*x_ims.shape[3]))
         x_ims = np.transpose(x_ims, axes=[0, 2, 1])
 
+        logger.info(str(x_ims.shape))
         logger.info("successfully create one batch of data.")
+
         return [x_seqs, x_ims], y
