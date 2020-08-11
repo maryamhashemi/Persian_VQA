@@ -10,9 +10,9 @@ class question_layer_LSTM(Model):
 
         self.embedding = Embedding(
             num_words, embedding_dim, input_length=seq_length, trainable=True)
-        self.lstm1 = LSTM(units=512, return_sequences=True)
+        self.lstm1 = LSTM(units=1024, return_sequences=True)
         self.dropout1 = Dropout(dropout_rate)
-        self.lstm2 = LSTM(units=512, return_sequences=False)
+        self.lstm2 = LSTM(units=1024, return_sequences=False)
         self.dropout2 = Dropout(dropout_rate)
         self.dense = Dense(1024, activation='tanh')
 
