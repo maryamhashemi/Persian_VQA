@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.layers import Layer
-from tensorflow.keras.layers import Dense, Dropout, Conv1D, MaxPool2D, LSTM, Activationو Embedding
+from tensorflow.keras.layers import Dense, Dropout, Conv1D, MaxPool2D, LSTM, Activation, Embedding
 from tensorflow.keras.initializers import glorot_normal, RandomNormal, Orthogonal, he_normal, glorot_uniform
 from constants import *
 
