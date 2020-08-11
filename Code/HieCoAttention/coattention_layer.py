@@ -79,7 +79,7 @@ class CoattentionModel(Layer):
         self.fc1_Dense = Dense(units=2 * self.hidden_size,
                                activation='relu',
                                kernel_initializer=he_normal(seed=84))
-        self.fc1_dropout = tDropout(self.dropout)
+        self.fc1_dropout = Dropout(self.dropout)
 
         self.fc = Dense(units=self.num_classes, activation='softmax',
                         kernel_initializer=glorot_uniform(seed=91),
