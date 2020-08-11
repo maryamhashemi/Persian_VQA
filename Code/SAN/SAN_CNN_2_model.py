@@ -75,7 +75,7 @@ def Train(google=True):
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
                         validation_data=val_generator,
-                        callbacks=[ModelCheckpoint])
+                        callbacks=[checkpoint])
     # save history
     with open(history_path, 'w') as file:
         json.dump(history.history, file)
