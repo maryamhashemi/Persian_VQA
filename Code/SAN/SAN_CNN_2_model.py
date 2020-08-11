@@ -51,11 +51,11 @@ def Train(google=True):
                                  save_weights_only=True,
                                  verbose=1)
 
-    model = SAN_CNN(NUM_CLASSES,
-                    DROPOUT_RATE,
-                    VOCAB_SIZE,
-                    EMBEDDING_DIM,
-                    ATTENTION_DIM)
+    model = SAN_CNN_2(NUM_CLASSES,
+                      DROPOUT_RATE,
+                      VOCAB_SIZE,
+                      EMBEDDING_DIM,
+                      ATTENTION_DIM)
 
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
