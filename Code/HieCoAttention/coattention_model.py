@@ -11,7 +11,7 @@ from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint
 def coattention():
     image_input = Input(shape=(196, 512))
     question_input = Input(shape=(SEQ_LENGTH,))
-    output = CoattentionModel()(image_input, question_input)
+    output = CoattentionModel()(question_input, image_input)
 
     model = Model(inputs=[question_input, image_input], outputs=output)
 
