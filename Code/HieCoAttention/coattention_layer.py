@@ -1,8 +1,8 @@
 import tensorflow as tf
+from constants import *
 from tensorflow.keras.layers import Layer
 from tensorflow.keras.layers import Dense, Dropout, Conv1D, MaxPool2D, LSTM, Activation, Embedding
 from tensorflow.keras.initializers import glorot_normal, RandomNormal, he_normal, glorot_uniform, orthogonal
-from constants import *
 
 
 class CoattentionModel(Layer):
@@ -12,7 +12,7 @@ class CoattentionModel(Layer):
         self.num_classes = NUM_CLASSES
         self.hidden_size = 512
         self.dropout = 0.5
-        self.num_embeddings = EMBEDDING_DIM
+        self.num_embeddings = VOCAB_SIZE
 
         self.image_dense = Dense(self.hidden_size,
                                  kernel_initializer=glorot_normal(seed=15))
