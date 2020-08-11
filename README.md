@@ -1,5 +1,5 @@
 # Persian VQA
-. Our aim in this project is to implement some state-of-the-art architectures designed for the task of the VQA and do experiments on the Persian dataset. For this purpose, no proper dataset is available hence we use the VQA v1 dataset and translate its questions and answers into Persian using Google translate and Taroman API.
+Our aim in this project is to implement some state-of-the-art architectures designed for the task of the VQA and do experiments on the Persian dataset. For this purpose, no proper dataset is available hence we use the VQA v1 dataset and translate its questions and answers into Persian using Google translate and Targoman API.
 
 ## Project Directory Tree
 ```
