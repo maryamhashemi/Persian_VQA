@@ -34,7 +34,7 @@ class DataGenerator(Sequence):
         Denotes the number of batches per epoch.
 
         """
-        return int(np.floor(self.questions.shape[0] / self.batch_size))
+        return int(np.ceil(self.questions.shape[0] / self.batch_size))
 
     def __getitem__(self, index):
         """
