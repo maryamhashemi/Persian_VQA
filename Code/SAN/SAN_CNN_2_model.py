@@ -33,19 +33,26 @@ def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim
     return model
 
 
-def Train(google=True):
+def Train(dataset):
     """
     Train SAN_CNN_2  with 2 attention layer.
+
+    Arguments:
+    dataset -- an int: 0 -> english, 1 -> google, 2 -> targoman
+
     """
 
     train_generator, val_generator = get_generator(google)
 
-    if google:
-        checkpoint_path = 'checkpoint/SAN_CNN_2_google/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_CNN_2_google.json'
-    else:
-        checkpoint_path = 'checkpoint/SAN_CNN_2_targoman/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_CNN_2_targoman.json'
+    if dataset == 0:
+        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
+        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
+    if dataset == 1:
+        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
+        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
+    if dataset == 2:
+        checkpoint_path = 'checkpoint/SAN_LSTM_2_targoman/cp-{epoch:04d}.ckpt'
+        history_path = 'trainHistoryDict/SAN_LSTM_2_targoman.json'
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  save_weights_only=True,
