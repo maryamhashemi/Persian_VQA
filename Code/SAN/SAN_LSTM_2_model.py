@@ -12,7 +12,7 @@ from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 
 
-def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
+def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim, embedding_matrix):
 
     qs_input = Input(shape=(SEQ_LENGTH,))
     img_input = Input(shape=(512, 14, 14))
@@ -22,7 +22,7 @@ def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_di
                                      embedding_dim,
                                      dropout_rate,
                                      SEQ_LENGTH,
-                                     EMBEDDING_MATRIX)(qs_input)
+                                     embedding_matrix)(qs_input)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
     att = attention_layer(attention_dim)([image_embed, att])
@@ -55,7 +55,8 @@ def Train(dataset):
                        DROPOUT_RATE,
                        VOCAB_SIZE,
                        EMBEDDING_DIM,
-                       ATTENTION_DIM)
+                       ATTENTION_DIM,
+                       EMBEDDING_MATRIX)
 
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
