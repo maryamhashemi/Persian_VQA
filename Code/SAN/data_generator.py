@@ -42,7 +42,11 @@ class DataGenerator(Sequence):
 
         """
         # Generate indexes of the batch
-        indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
+        if ((index+1)*self.batch_size= < self.questions.shape[0]):
+            indexes = self.indexes[index *
+                                   self.batch_size:(index + 1) * self.batch_size]
+        else:
+            indexes = self.indexes[index * self.batch_size:]
 
         # Generate data
         [x_seqs, x_ims], y = self.__data_generation(indexes)
@@ -54,7 +58,7 @@ class DataGenerator(Sequence):
         """
         Updates indexes after each epoch'
         """
-        self.indexes = np.arange(self.__len__()*self.batch_size)
+        self.indexes = np.arange(self.questions.shape[0])
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
 
@@ -64,9 +68,11 @@ class DataGenerator(Sequence):
         """
         Generates data containing batch_size samples
         """
-        x_seqs = np.empty((self.batch_size, SEQ_LENGTH))
-        x_ims = np.empty((self.batch_size, 512, 14, 14))
-        y = np.empty((self.batch_size, NUM_CLASSES), dtype=int)
+        batch = self.indexes.shape
+
+        x_seqs = np.empty((batch, SEQ_LENGTH))
+        x_ims = np.empty((batch, 512, 14, 14))
+        y = np.empty((batch, NUM_CLASSES), dtype=int)
 
         for i, idx in enumerate(indexes):
             # Store sample
