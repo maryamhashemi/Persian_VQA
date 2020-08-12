@@ -48,7 +48,7 @@ def Train(dataset):
     train_generator, val_generator, val_question_ids, embedding_matrix = get_generator(
         dataset)
 
-    print(embedding_matrix.shape)
+    save_config()
 
     checkpoint = ModelCheckpoint(CHECKPOINT_PATH + '/cp-{epoch: 04d}.ckpt',
                                  save_weights_only=True,
@@ -96,7 +96,7 @@ def Train(dataset):
     result = {}
     for q in range(len(val_question_ids)):
         print(q)
-        ans = ans_vocab[predictions[q].argmax(axis=-1)]
+        ans = ans_vocab[str(predictions[q].argmax(axis=-1))]
         print(ans)
         q_id = val_question_ids[q]
         print(q_id)
