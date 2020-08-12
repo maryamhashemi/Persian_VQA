@@ -9,7 +9,7 @@ class question_layer_LSTM(Model):
         super(question_layer_LSTM, self).__init__(**kwargs)
 
         self.embedding = Embedding(
-            num_words, embedding_dim, input_length=seq_length, trainable=False, weights=embedding_matrix)
+            num_words, embedding_dim, input_length=seq_length, weights=[embedding_matrix], trainable=False)
         self.lstm1 = LSTM(units=1024, return_sequences=True)
         self.dropout1 = Dropout(dropout_rate)
         self.lstm2 = LSTM(units=1024, return_sequences=False)
