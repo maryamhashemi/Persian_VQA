@@ -47,7 +47,7 @@ def Train(dataset):
 
     train_generator, val_generator, val_question_ids = get_generator(dataset)
 
-    checkpoint = ModelCheckpoint(checkpoint_path,
+    checkpoint = ModelCheckpoint(CHECKPOINT_PATH + '/cp-{epoch: 04d}.ckpt',
                                  save_weights_only=True,
                                  verbose=1)
 
@@ -69,7 +69,8 @@ def Train(dataset):
     model.summary()
 
     # Save the weights using the `checkpoint_path` format
-    model.save_weights(checkpoint_path.format(epoch=0))
+    model.save_weights(CHECKPOINT_PATH +
+                       '/cp-{epoch: 04d}.ckpt'.format(epoch=0))
 
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,

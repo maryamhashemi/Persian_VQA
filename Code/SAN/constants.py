@@ -83,7 +83,7 @@ ANS_VOCAB_PATH = 'Exp{id}/ans_vocab.json'.format(id=EXP_ID)
 FASTTEXT_PATH = os.path.join(BASE_PATH, 'dataset/cc.fa.300.vec')
 
 # checkpoints path
-CHECKPOINT_PATH = 'Exp{id}/checkpoint/cp-{epoch:04d}.ckpt'.format(id=EXP_ID)
+CHECKPOINT_PATH = 'Exp{id}/checkpoint'.format(id=EXP_ID)
 
 # history path
 HISTORY_PATH = 'Exp{id}/history.json'.format(id=EXP_ID)
