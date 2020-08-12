@@ -7,7 +7,7 @@ class question_layer_LSTM(Model):
 
     def __init__(self, num_words, embedding_dim, dropout_rate, seq_length, embedding_matrix, ** kwargs):
         super(question_layer_LSTM, self).__init__(**kwargs)
-
+        print(embedding_matrix.shape)
         self.embedding = Embedding(num_words,
                                    embedding_dim,
                                    input_length=seq_length,
