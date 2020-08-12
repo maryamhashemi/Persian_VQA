@@ -91,15 +91,11 @@ def Train(dataset):
     np.save('Exp{id}/predictions.npy'.format(id=EXP_ID), predictions)
 
     ans_vocab = load_ans_vocab()
-    print(len(ans_vocab))
 
     result = []
     for q in range(len(val_question_ids)):
-        print(q)
         ans = ans_vocab[str(predictions[q].argmax(axis=-1))]
-        print(ans)
-        q_id = val_question_ids[q]
-        print(q_id)
+        q_id = int(val_question_ids[q])
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
