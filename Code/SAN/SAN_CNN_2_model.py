@@ -1,5 +1,6 @@
 import json
 from constants import *
+from prepare_QA import *
 from image_layer import *
 from attention_layer import *
 from prepare_generator import *
@@ -22,7 +23,8 @@ def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim
                                     FILTER_SIZE,
                                     NUM_FILTERS,
                                     SEQ_LENGTH,
-                                    dropout_rate)(qs_input)
+                                    dropout_rate,
+                                    EMBEDDING_MATRIX)(qs_input)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
     att = attention_layer(attention_dim)([image_embed, att])
@@ -42,19 +44,9 @@ def Train(dataset):
 
     """
 
-    train_generator, val_generator = get_generator(google)
+    train_generator, val_generator, val_question_ids = get_generator(dataset)
 
-    if dataset == 0:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
-    if dataset == 1:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
-    if dataset == 2:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_targoman/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_targoman.json'
-
-    checkpoint = ModelCheckpoint(checkpoint_path,
+    checkpoint = ModelCheckpoint(CHECKPOINT_PATH,
                                  save_weights_only=True,
                                  verbose=1)
 
@@ -84,11 +76,25 @@ def Train(dataset):
                         validation_data=val_generator,
                         callbacks=[checkpoint])
     # save history
-    with open(history_path, 'w') as file:
+    with open(HISTORY_PATH, 'w') as file:
         json.dump(history.history, file)
 
-    return history
+    # prediction
+    predictions = model.predict(val_generator)
+
+    ans_vocab = load_ans_vocab()
+
+    result = {}
+    for q in range(len(val_question_ids)):
+        ans = ans_vocab[predictions[q].argmax(axis=-1)]
+        q_id = val_question_ids[q]
+        result.append({u'answer': ans, u'question_id': q_id})
+
+    with open(PRED_PATH, 'w') as file:
+        json.dump(list(result), file)
+
+    return
 
 
-Train(google=True)
+Train(dataset=1)
 # Train(google=False)

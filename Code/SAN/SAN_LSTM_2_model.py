@@ -1,6 +1,6 @@
 import json
-import tensorflow as tf
 from constants import *
+from prepare_QA import *
 from image_layer import *
 from attention_layer import *
 from prepare_generator import *
@@ -21,7 +21,8 @@ def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_di
     ques_embed = question_layer_LSTM(num_words,
                                      embedding_dim,
                                      dropout_rate,
-                                     SEQ_LENGTH)(qs_input)
+                                     SEQ_LENGTH,
+                                     EMBEDDING_MATRIX)(qs_input)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
     att = attention_layer(attention_dim)([image_embed, att])
@@ -44,17 +45,7 @@ def Train(dataset):
 
     """
 
-    train_generator, val_generator = get_generator(google)
-
-    if dataset == 0:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
-    if dataset == 1:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_english/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_english.json'
-    if dataset == 2:
-        checkpoint_path = 'checkpoint/SAN_LSTM_2_targoman/cp-{epoch:04d}.ckpt'
-        history_path = 'trainHistoryDict/SAN_LSTM_2_targoman.json'
+    train_generator, val_generator, val_question_ids = get_generator(dataset)
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  save_weights_only=True,
@@ -86,67 +77,25 @@ def Train(dataset):
                         callbacks=[checkpoint])
 
     # save history
-    with open(history_path, 'w') as file:
+    with open(HISTORY_PATH, 'w') as file:
         json.dump(history.history, file)
 
-    return history
+    # prediction
+    predictions = model.predict(val_generator)
+
+    ans_vocab = load_ans_vocab()
+
+    result = {}
+    for q in range(len(val_question_ids)):
+        ans = ans_vocab[predictions[q].argmax(axis=-1)]
+        q_id = val_question_ids[q]
+        result.append({u'answer': ans, u'question_id': q_id})
+
+    with open(PRED_PATH, 'w') as file:
+        json.dump(list(result), file)
+
+    return
 
 
-# Train(google=True)
+Train(dataset=1)
 # Train(google=False)
-
-
-def predict(dataset):
-
-    if dataset == 0:
-        checkpoint_dir = 'checkpoint/SAN_LSTM_2_englisht'
-    if dataset == 1:
-        checkpoint_dir = 'checkpoint/SAN_LSTM_2_english'
-    if dataset == 2:
-        checkpoint_dir = 'checkpoint/SAN_LSTM_2_targoman'
-
-    # Create a new model instance
-    model = SAN_LSTM_2(NUM_CLASSES,
-                       DROPOUT_RATE,
-                       VOCAB_SIZE,
-                       EMBEDDING_DIM,
-                       ATTENTION_DIM)
-
-    lr_schedule = ExponentialDecay(initial_learning_rate=LR,
-                                   decay_steps=10000,
-                                   decay_rate=0.99997592083)
-
-    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
-
-    model.compile(optimizer=optimizer,
-                  loss='categorical_crossentropy',
-                  metrics=['accuracy'])
-
-    # Load the previously saved weights
-    latest = tf.train.latest_checkpoint(checkpoint_dir)
-    model.load_weights(latest)
-
-    # predict
-    loss, acc = model.predict()
-
-
-def evaluate(dataset):
-
-    if dataset == 0:
-        annotations = json.load(
-            open(ENGLISH_ANNOTATION_VAL_PATH, encoding='utf-8'))
-    if dataset == 1:
-        annotations = json.load(
-            open(GOOGLE_ANNOTATION_VAL_PATH, encoding='utf-8'))
-    if dataset == 2:
-        annotations = json.load(
-            open(TARGOMAN_ANNOTATION_VAL_PATH, encoding='utf-8'))
-
-    answers = annotations["annotations"]
-    answers_df = pd.DataFrame(answers)
-    print(answers_df["answers"].values.shape)
-
-
-evaluate(0)
-evaluate(1)
-evaluate(2)
