@@ -246,6 +246,8 @@ def preprocess_question(train_qs, val_qs):
     embedding_matrix = get_embedding_matrix(
         VOCAB_SIZE, word_index, vocab_and_vectors)
 
+    logger.info("shape of embedding_matrix is " + str(embedding_matrix.shape))
+
     return train_X_seqs, val_X_seqs, embedding_matrix
 
 
