@@ -69,7 +69,7 @@ def get_generator(dataset):
     val_questions = val_data["question"].values
 
     # apply preprocessing on questions
-    embedding_matrix, train_seqs, val_seqs = preprocess_question(
+    train_seqs, val_seqs, embedding_matrix = preprocess_question(
         train_questions, val_questions)
     logger.info("shape of train_seqs is" + str(train_seqs.shape))
     logger.info("shape of val_seqs is" + str(val_seqs.shape))
