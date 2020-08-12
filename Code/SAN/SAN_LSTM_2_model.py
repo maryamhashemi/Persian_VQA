@@ -56,7 +56,7 @@ def Train(dataset):
 
     model = SAN_LSTM_2(NUM_CLASSES,
                        DROPOUT_RATE,
-                       VOCAB_SIZE,
+                       embedding_matrix.shape[0],
                        EMBEDDING_DIM,
                        ATTENTION_DIM,
                        embedding_matrix)
