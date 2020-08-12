@@ -186,7 +186,7 @@ def get_train_val_label(train_data, val_data):
     with open(ANS_VOCAB_PATH, 'w') as file:
         json.dump(ans_vocab, file)
 
-    logger.info("ans_vocab dictionary saved in " + ans_vocab_path)
+    logger.info("ans_vocab dictionary saved in " + ANS_VOCAB_PATH)
     logger.info("Number of clasess: " + str(len(ans_vocab)))
     logger.info("Shape of Answer Vectors in training Data: " +
                 str(train_Y.shape))
