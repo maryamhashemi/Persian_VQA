@@ -101,7 +101,7 @@ def save_config():
     config = {'NAME': 'SAN_LSTM_2',
               'EMBEDDING': 'fasttext_300',
               "OPTIMIZER": 'Adam',
-              "LOSS": 'categorical_crossentropy'
+              "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
               "EPOCHS": EPOCHS,
