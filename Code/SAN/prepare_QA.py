@@ -243,7 +243,8 @@ def preprocess_question(train_qs, val_qs):
     logger.info("convert validation questions to sequences.")
 
     vocab_and_vectors = load_fasttext()
-    EMBEDDING_MATRIX = get_embedding_matrix(word_index, vocab_and_vectors)
+    EMBEDDING_MATRIX = get_embedding_matrix(
+        VOCAB_SIZE, word_index, vocab_and_vectors)
 
     return train_X_seqs, val_X_seqs
 
@@ -266,7 +267,7 @@ def load_fasttext():
     return vocab_and_vectors
 
 
-def get_embedding_matrix(word_index, vocab_and_vectors):
+def get_embedding_matrix(vocab_size, word_index, vocab_and_vectors):
     """
     create embedding matrix of all vocabs.
 
@@ -277,7 +278,7 @@ def get_embedding_matrix(word_index, vocab_and_vectors):
     Return:
     embedding_matrix -- a numpy array that hold words embedding.
     """
-    embedding_matrix = np.zeros((VOCAB_SIZE, EMBEDDING_DIM))
+    embedding_matrix = np.zeros((vocab_size, EMBEDDING_DIM))
 
     for word, i in word_index.items():
         embedding_vector = vocab_and_vectors.get(word)
