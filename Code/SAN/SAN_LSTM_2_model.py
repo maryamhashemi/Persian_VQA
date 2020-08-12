@@ -88,8 +88,10 @@ def Train(dataset):
     # prediction
     predictions = model.predict(val_generator)
 
+    np.save('Exp{id}/predictions.npy'.format(id=EXP_ID), predictions)
+
     ans_vocab = load_ans_vocab()
-    print(ans_vocab.shape)
+    print(len(ans_vocab))
 
     result = {}
     for q in range(len(val_question_ids)):
