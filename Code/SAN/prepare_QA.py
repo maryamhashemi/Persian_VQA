@@ -243,10 +243,10 @@ def preprocess_question(train_qs, val_qs):
     logger.info("convert validation questions to sequences.")
 
     vocab_and_vectors = load_fasttext()
-    EMBEDDING_MATRIX = get_embedding_matrix(
+    embedding_matrix = get_embedding_matrix(
         VOCAB_SIZE, word_index, vocab_and_vectors)
 
-    return train_X_seqs, val_X_seqs
+    return train_X_seqs, val_X_seqs, embedding_matrix
 
 
 def load_fasttext():

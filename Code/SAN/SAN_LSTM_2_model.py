@@ -45,7 +45,8 @@ def Train(dataset):
 
     """
 
-    train_generator, val_generator, val_question_ids = get_generator(dataset)
+    train_generator, val_generator, val_question_ids, embedding_matrix = get_generator(
+        dataset)
 
     checkpoint = ModelCheckpoint(CHECKPOINT_PATH + '/cp-{epoch: 04d}.ckpt',
                                  save_weights_only=True,
@@ -56,7 +57,7 @@ def Train(dataset):
                        VOCAB_SIZE,
                        EMBEDDING_DIM,
                        ATTENTION_DIM,
-                       EMBEDDING_MATRIX)
+                       embedding_matrix)
 
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
