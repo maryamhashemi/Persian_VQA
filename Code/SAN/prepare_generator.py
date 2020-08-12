@@ -87,7 +87,7 @@ def get_generator(dataset):
 
     # get answers
     _, train_answers, val_answers = get_train_val_label(
-        train_data, val_data, dataset)
+        train_data, val_data)
 
     train_generator = DataGenerator(train_seqs,
                                     train_image_ids,
