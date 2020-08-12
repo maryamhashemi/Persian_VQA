@@ -103,7 +103,7 @@ def Train(dataset):
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
-        json.dump(list(result), file)
+        json.dump(result, file)
 
     return
 
@@ -127,7 +127,7 @@ def save_config():
 
     print("save config in" + str(CONFIG_PATH))
     with open(CONFIG_PATH, 'w') as file:
-        json.dump(list(config), file)
+        json.dump(config, file)
 
     return
 
