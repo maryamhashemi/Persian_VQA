@@ -42,17 +42,17 @@ GOOGLE_ANNOTATION_TEST_PATH = os.path.join(BASE_PATH, '...')
 
 # Question path (Targoman translation)
 TARGOMAN_QUESTION_TRAIN_PATH = os.path.join(
-    BASE_PATH, 'dataset/google/targoman-train.json')
+    BASE_PATH, 'dataset/targoman/targoman-train.json')
 TARGOMAN_QUESTION_VAL_PATH = os.path.join(
-    BASE_PATH, 'dataset/google/targoman-val.json')
+    BASE_PATH, 'dataset/targoman/targoman-val.json')
 TARGOMAN_QUESTION_TEST_PATH = os.path.join(
-    BASE_PATH, 'dataset/google/targoman-test.json')
+    BASE_PATH, 'dataset/targoman/targoman-test.json')
 
 # Annotation path (Targoman translation)
 TARGOMAN_ANNOTATION_TRAIN_PATH = os.path.join(
-    BASE_PATH, 'dataset/google/targoman-train-annotations.json')
+    BASE_PATH, 'dataset/targoman/targoman-train-annotations.json')
 TARGOMAN_ANNOTATION_VAL_PATH = os.path.join(
-    BASE_PATH, 'dataset/google/targoman-val-annotations.json')
+    BASE_PATH, 'dataset/targoman/targoman-val-annotations.json')
 TARGOMAN_ANNOTATION_TEST_PATH = os.path.join(BASE_PATH, '...')
 
 # Hyperparametrs
