@@ -181,7 +181,7 @@ def get_train_val_label(train_data, val_data):
         val_data['multiple_choice_answer'].apply(lambda x: x).values)
     logger.info("successfully get val labels.")
 
-    ans_vocab = {l: i for i, l in enumerate(label_encoder.classes_)}
+    ans_vocab = {i: l for i, l in enumerate(label_encoder.classes_)}
 
     with open(ANS_VOCAB_PATH, 'w') as file:
         json.dump(ans_vocab, file)
