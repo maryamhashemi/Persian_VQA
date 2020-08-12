@@ -45,6 +45,7 @@ def Train(dataset):
     """
 
     train_generator, val_generator, val_question_ids = get_generator(dataset)
+    save_config()
 
     checkpoint = ModelCheckpoint(CHECKPOINT_PATH,
                                  save_weights_only=True,
@@ -91,6 +92,30 @@ def Train(dataset):
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
+        json.dump(list(result), file)
+
+    return
+
+
+def save_config():
+    config = {'NAME': 'SAN_CNN_2',
+              'EMBEDDING': 'fasttext_300',
+              "OPTIMIZER": 'Adam',
+              "LOSS": 'categorical_crossentropy'
+              'DROPOUT_RATE': DROPOUT_RATE,
+              "EMBEDDING_DIM": EMBEDDING_DIM,
+              "EPOCHS": EPOCHS,
+              "BATCH_SIZE": BATCH_SIZE,
+              "SEQ_LENGTH": SEQ_LENGTH,
+              "VOCAB_SIZE": VOCAB_SIZE,
+              "NUM_FILTERS": NUM_FILTERS,
+              "FILTER_SIZE": FILTER_SIZE,
+              "ATTENTION_DIM": ATTENTION_DIM,
+              "NUM_CLASSES": NUM_CLASSES,
+              "LR": LR}
+
+    print("save config in" + str(CONFIG_PATH))
+    with open(CONFIG_PATH, 'w') as file:
         json.dump(list(result), file)
 
     return
