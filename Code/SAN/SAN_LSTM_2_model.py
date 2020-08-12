@@ -89,11 +89,15 @@ def Train(dataset):
     predictions = model.predict(val_generator)
 
     ans_vocab = load_ans_vocab()
+    print(ans_vocab.shape)
 
     result = {}
     for q in range(len(val_question_ids)):
+        print(q)
         ans = ans_vocab[predictions[q].argmax(axis=-1)]
+        print(ans)
         q_id = val_question_ids[q]
+        print(q_id)
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
