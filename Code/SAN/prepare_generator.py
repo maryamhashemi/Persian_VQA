@@ -18,12 +18,13 @@ logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
 
-def get_generator(google=True):
+def get_generator(dataset):
     """
     build training and validation generator.
 
     Arguments:
     google -- a boolean that indicates whether use Google or Targoman translation data.
+    dataset -- an int: 0 -> english, 1 -> google, 2 -> targoman
 
 
     Return:
@@ -32,14 +33,21 @@ def get_generator(google=True):
 
     """
 
-    if google:
+    if dataset == 0:
+        # english
+        logger.info("use English dataset.")
+        train_data = get_QA(ENGLISH_QUESTION_TRAIN_PATH,
+                            ENGLISH_ANNOTATION_TRAIN_PATH)
+        val_data = get_QA(ENGLISH_QUESTION_VAL_PATH,
+                          ENGLISH_ANNOTATION_VAL_PATH)
+    if dataset == 1:
         # Google translation
         logger.info("use Google Translation.")
         train_data = get_QA(GOOGLE_QUESTION_TRAIN_PATH,
                             GOOGLE_ANNOTATION_TRAIN_PATH)
         val_data = get_QA(GOOGLE_QUESTION_VAL_PATH,
                           GOOGLE_ANNOTATION_VAL_PATH)
-    else:
+    if dataset == 2:
         # Targoman translation
         logger.info("use Targoman Translation.")
         train_data = get_QA(TARGOMAN_QUESTION_TRAIN_PATH,
@@ -77,7 +85,8 @@ def get_generator(google=True):
     logger.info("shape of val_image_path is " + str(len(val_image_path)))
 
     # get answers
-    _, train_answers, val_answers = get_train_val_label(train_data, val_data)
+    _, train_answers, val_answers = get_train_val_label(
+        train_data, val_data, dataset)
 
     train_generator = DataGenerator(train_seqs,
                                     train_image_ids,

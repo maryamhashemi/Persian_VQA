@@ -4,6 +4,7 @@ import heapq
 import logging
 import numpy as np
 import pandas as pd
+import deepdish as dd
 from constants import *
 from sklearn.preprocessing import LabelBinarizer
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -155,13 +156,14 @@ def filter_questions(k_frequent_answers, data):
     return filtered_data
 
 
-def get_train_val_label(train_data, val_data):
+def get_train_val_label(train_data, val_data, dataset):
     """
     convert answers of training and validation questions to one hot vector.
 
     Arguments:
     train_data -- a dataframe that consists of training questions and answers.
     val_data -- a dataframe that consists of validation questions and answers.
+    dataset -- an int: 0 -> english, 1 -> google, 2 -> targoman
 
     Return:
     ans_vocab -- a dictionary that maps answers to an int number(label).
@@ -169,6 +171,13 @@ def get_train_val_label(train_data, val_data):
     val_Y -- a numpy array that has shape of (number of validation example, NUM_CLASSES).
 
     """
+    if dataset == 0:
+        ans_vocab_path = 'ans_vocab/english_ans_vocab.json'
+    if dataset == 1:
+        ans_vocab_path = 'ans_vocab/google_ans_vocab.json'
+    if dataset == 2:
+        ans_vocab_path = 'ans_vocab/targoman_ans_vocab.json'
+
     label_encoder = LabelBinarizer()
 
     train_Y = label_encoder.fit_transform(
@@ -180,6 +189,9 @@ def get_train_val_label(train_data, val_data):
     logger.info("successfully get val labels.")
 
     ans_vocab = {l: i for i, l in enumerate(label_encoder.classes_)}
+    with open(ans_vocab_path, 'w') as file:
+        json.dump(ans_vocab, file)
+        logger.info("save ans_vocab file.")
 
     logger.info("Number of clasess: " + str(len(ans_vocab)))
     logger.info("Shape of Answer Vectors in training Data: " +
@@ -208,9 +220,11 @@ def preprocess_question(train_qs, val_qs):
     train_qs = [normalizer.normalize(item) for item in train_qs]
     val_qs = [normalizer.normalize(item) for item in val_qs]
 
-    tokenizer = Tokenizer(num_words=VOCAB_SIZE, oov_token=OOV_TOK)
-    word_index = tokenizer.word_index
+    tokenizer = Tokenizer(oov_token=OOV_TOK)
     tokenizer.fit_on_texts(train_qs)
+    word_index = tokenizer.word_index
+    VOCAB_SIZE = len(word_index)
+    logger.info("number of unique words in train is " + str(VOCAB_SIZE))
 
     # prepare train sequence
     train_X_seqs = tokenizer.texts_to_sequences(train_qs)

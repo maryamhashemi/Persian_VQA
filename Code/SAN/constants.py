@@ -12,6 +12,19 @@ IMG_FEATURE_TRAIN_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/train')
 IMG_FEATURE_VAL_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/val')
 IMG_FEATURE_TEST_PATH = os.path.join(BASE_PATH, 'dataset/vgg16/test')
 
+# Question path (English)
+ENGLISH_QUESTION_TRAIN_PATH = os.path.join(
+    BASE_PATH, 'dataset/english/OpenEnded_mscoco_train2014_questions.json')
+ENGLISH_QUESTION_VAL_PATH = os.path.join(
+    BASE_PATH, 'dataset/english/OpenEnded_mscoco_val2014_questions.json')
+
+# Annotation path (English)
+ENGLISH_ANNOTATION_TRAIN_PATH = os.path.join(
+    BASE_PATH, 'dataset/english/mscoco_train2014_annotations.json')
+ENGLISH_ANNOTATION_VAL_PATH = os.path.join(
+    BASE_PATH, 'dataset/english/mscoco_val2014_annotations.json')
+
+
 # Question path (Google translation)
 GOOGLE_QUESTION_TRAIN_PATH = os.path.join(
     BASE_PATH, 'dataset/google/google-train.json')
