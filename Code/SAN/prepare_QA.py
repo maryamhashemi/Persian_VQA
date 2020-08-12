@@ -251,14 +251,14 @@ def load_fasttext():
     """
     load fasttext embedding file.
     """
-    file = open(FASTTEXT_PATH), encoding = "utf8")
+    file = open(FASTTEXT_PATH, encoding="utf8")
 
-    vocab_and_vectors={}
+    vocab_and_vectors = {}
     for line in file:
-        values=line.split()
-        word=values[0]
-        vector=np.asarray(values[1:], dtype = 'float32')
-        vocab_and_vectors[word]=vector
+        values = line.split()
+        word = values[0]
+        vector = np.asarray(values[1:], dtype='float32')
+        vocab_and_vectors[word] = vector
 
     logging.info("load fasttext.")
 
@@ -276,13 +276,13 @@ def get_embedding_matrix(word_index, vocab_and_vectors):
     Return:
     embedding_matrix -- a numpy array that hold words embedding.
     """
-    embedding_matrix=np.zeros((VOCAB_SIZE, EMBEDDING_DIM))
+    embedding_matrix = np.zeros((VOCAB_SIZE, EMBEDDING_DIM))
 
     for word, i in word_index.items():
-        embedding_vector=vocab_and_vectors.get(word)
+        embedding_vector = vocab_and_vectors.get(word)
 
         if embedding_vector is not None:
-            embedding_matrix[i]=embedding_vector
+            embedding_matrix[i] = embedding_vector
 
     logger.info("create embedding matrix.")
 
