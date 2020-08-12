@@ -93,7 +93,7 @@ def Train(dataset):
     ans_vocab = load_ans_vocab()
     print(len(ans_vocab))
 
-    result = {}
+    result = []
     for q in range(len(val_question_ids)):
         print(q)
         ans = ans_vocab[str(predictions[q].argmax(axis=-1))]
@@ -103,7 +103,7 @@ def Train(dataset):
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
-        json.dump(result, file)
+        json.dump(list(result), file)
 
     return
 
