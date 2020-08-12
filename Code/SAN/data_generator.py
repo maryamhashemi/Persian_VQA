@@ -68,7 +68,7 @@ class DataGenerator(Sequence):
         """
         Generates data containing batch_size samples
         """
-        batch = self.indexes.shape[0]
+        batch = indexes.shape[0]
 
         x_seqs = np.empty((batch, SEQ_LENGTH))
         x_ims = np.empty((batch, 512, 14, 14))
