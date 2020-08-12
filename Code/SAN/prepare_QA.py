@@ -227,7 +227,7 @@ def preprocess_question(train_qs, val_qs):
     with open(TOKEN_PATH, 'wb') as file:
         pickle.dump(tokenizer, file, protocol=pickle.HIGHEST_PROTOCOL)
 
-    logger.info("tokenizer saved in " + str(VOCAB_SIZE))
+    logger.info("tokenizer saved in " + str(TOKEN_PATH))
 
     # prepare train sequence
     train_X_seqs = tokenizer.texts_to_sequences(train_qs)
@@ -261,7 +261,7 @@ def load_fasttext():
         vector = np.asarray(values[1:], dtype='float32')
         vocab_and_vectors[word] = vector
 
-    logging.info("load fasttext.")
+    logger.info("load fasttext.")
 
     return vocab_and_vectors
 
