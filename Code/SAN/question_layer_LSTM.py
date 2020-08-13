@@ -28,16 +28,16 @@ class question_layer_LSTM(Model):
 
         # (N, SEQ_LENGTH, embedding_dim) -> (N, SEQ_LENGTH, 512)
         x = self.lstm1(x)
-        x = self.batch1(x)
+        # x = self.batch1(x)
         x = self.dropout1(x)
 
         # (N, SEQ_LENGTH, 512) -> (N, 512)
         x = self.lstm2(x)
-        x = self.batch2(x)
+        # x = self.batch2(x)
         x = self.dropout2(x)
 
         # (N, 512) -> (N * 1024)
         x = self.dense(x)
-        x = self.batch(x)
+        # x = self.batch(x)
 
         return x

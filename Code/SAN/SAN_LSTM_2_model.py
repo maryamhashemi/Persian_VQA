@@ -89,13 +89,6 @@ def Train(dataset):
     with open(HISTORY_PATH, 'w') as file:
         json.dump(history.history, file)
 
-    # evaluate model
-    results = model.evaluate(val_generator,
-                             workers=6,
-                             use_multiprocessing=True,
-                             verbose=1)
-    print('val loss, val acc:', results)
-
     # prediction
     predictions = model.predict(val_generator,
                                 workers=6,
