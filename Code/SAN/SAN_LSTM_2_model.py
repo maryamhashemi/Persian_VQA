@@ -67,7 +67,8 @@ def Train(dataset):
     earlystop_callback = EarlyStopping(monitor='val_loss',
                                        min_delta=0.0001,
                                        patience=2)
-    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
+    # optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
+    optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
