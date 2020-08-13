@@ -58,7 +58,7 @@ TARGOMAN_ANNOTATION_VAL_PATH = os.path.join(
 DROPOUT_RATE = 0.5
 EMBEDDING_DIM = 300
 EPOCHS = 1
-BATCH_SIZE = 200
+BATCH_SIZE = 300
 SEQ_LENGTH = 26
 VOCAB_SIZE = 0
 NUM_FILTERS = [256, 256, 512]
@@ -89,7 +89,7 @@ CHECKPOINT_PATH = 'Exp{id}/checkpoint'.format(id=EXP_ID)
 HISTORY_PATH = 'Exp{id}/history.json'.format(id=EXP_ID)
 
 # predictions path
-PRED_PATH = 'Exp{id}/predictions.json'.format(id=EXP_ID)
+PRED_PATH = 'Exp{id}/result.json'.format(id=EXP_ID)
 
 # config path
 CONFIG_PATH = 'Exp{id}/config.json'.format(id=EXP_ID)

@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, BatchNormalization
 
 
 class image_layer(Model):
@@ -8,6 +8,7 @@ class image_layer(Model):
     def __init__(self, **kwargs):
         super(image_layer, self).__init__(**kwargs)
         self.dense = Dense(1024, activation='tanh')
+        self.batch = BatchNormalization(center=False, scale=False)
 
     def call(self, inputs):
         # (N, 512, 14, 14) -> (N, 512, 196)
@@ -19,5 +20,6 @@ class image_layer(Model):
 
         # (N, 196, 512) -> (N, 196, 1024)
         x = self.dense(x)
+        x = self.batch(x)
 
         return x

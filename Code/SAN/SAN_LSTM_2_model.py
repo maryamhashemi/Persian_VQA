@@ -7,7 +7,7 @@ from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import SGD, Adam
-from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 
@@ -48,7 +48,7 @@ def Train(dataset):
     train_generator, val_generator, val_question_ids, embedding_matrix = get_generator(
         dataset)
 
-    save_config()
+    save_config(dataset)
 
     checkpoint = ModelCheckpoint(CHECKPOINT_PATH + '/cp-{epoch: 04d}.ckpt',
                                  save_weights_only=True,
@@ -64,7 +64,9 @@ def Train(dataset):
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
                                    decay_rate=0.99997592083)
-
+    earlystop_callback = EarlyStopping(monitor='val_loss',
+                                       min_delta=0.0001,
+                                       patience=2)
     optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
 
     model.compile(optimizer=optimizer,
@@ -79,16 +81,26 @@ def Train(dataset):
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
                         validation_data=val_generator,
-                        callbacks=[checkpoint])
+                        callbacks=[checkpoint, earlystop_callback],
+                        workers=6,
+                        use_multiprocessing=True)
 
     # save history
     with open(HISTORY_PATH, 'w') as file:
         json.dump(history.history, file)
 
-    # prediction
-    predictions = model.predict(val_generator)
+    # evaluate model
+    results = model.evaluate(val_generator,
+                             workers=6,
+                             use_multiprocessing=True,
+                             verbose=1)
+    print('val loss, val acc:', results)
 
-    np.save('Exp{id}/predictions.npy'.format(id=EXP_ID), predictions)
+    # prediction
+    predictions = model.predict(val_generator,
+                                workers=6,
+                                use_multiprocessing=True,
+                                verbose=1)
 
     ans_vocab = load_ans_vocab()
 
@@ -104,17 +116,25 @@ def Train(dataset):
     return
 
 
-def save_config():
+def save_config(dataset):
+    if dataset == 0:
+        DATASET = 'English'
+    if dataset == 1:
+        DATASET = 'Google'
+    if dataset == 2:
+        DATASET = 'Targoman'
+
     config = {'NAME': 'SAN_LSTM_2',
               'EMBEDDING': 'fasttext_300',
+              "DATASET": DATASET,
               "OPTIMIZER": 'Adam',
+              "EARLY STOPPING": 'val_loss'
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
               "EPOCHS": EPOCHS,
               "BATCH_SIZE": BATCH_SIZE,
               "SEQ_LENGTH": SEQ_LENGTH,
-              "VOCAB_SIZE": VOCAB_SIZE,
               "NUM_FILTERS": NUM_FILTERS,
               "FILTER_SIZE": FILTER_SIZE,
               "ATTENTION_DIM": ATTENTION_DIM,

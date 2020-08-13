@@ -18,6 +18,7 @@ class question_layer_LSTM(Model):
         self.lstm2 = LSTM(units=1024, return_sequences=False)
         self.dropout2 = Dropout(dropout_rate)
         self.dense = Dense(1024, activation='tanh')
+        self.batch = BatchNormalization(center=False, scale=False)
 
     def call(self, inputs):
         # (N, SEQ_LENGTH) -> (N, SEQ_LENGTH, embedding_dim)
@@ -33,5 +34,6 @@ class question_layer_LSTM(Model):
 
         # (N, 512) -> (N * 1024)
         x = self.dense(x)
+        x = self.batch(x)
 
         return x
