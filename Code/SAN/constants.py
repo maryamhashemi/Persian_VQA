@@ -57,7 +57,7 @@ TARGOMAN_ANNOTATION_VAL_PATH = os.path.join(
 # Hyperparametrs
 DROPOUT_RATE = 0.5
 EMBEDDING_DIM = 300
-EPOCHS = 50
+EPOCHS = 1
 BATCH_SIZE = 300
 SEQ_LENGTH = 26
 VOCAB_SIZE = 0
@@ -71,7 +71,7 @@ LR = 0.0005
 OOV_TOK = "<OOV>"
 
 # Experiment id
-EXP_ID = 1
+EXP_ID = 2
 
 # Tokenizer path
 TOKEN_PATH = 'Exp{id}/tokenizer.pickle'.format(id=EXP_ID)
