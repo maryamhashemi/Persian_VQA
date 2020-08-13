@@ -71,7 +71,7 @@ LR = 1
 OOV_TOK = "<OOV>"
 
 # Experiment id
-EXP_ID = 8
+EXP_ID = 9
 
 # Tokenizer path
 TOKEN_PATH = 'Exp{id}/tokenizer.pickle'.format(id=EXP_ID)
