@@ -13,10 +13,12 @@ class question_layer_LSTM(Model):
                                    input_length=seq_length,
                                    weights=[embedding_matrix],
                                    trainable=False)
-        self.lstm1 = LSTM(units=1024, return_sequences=True)
+        self.lstm1 = LSTM(units=1024, return_sequences=True,
+                          recurrent_dropout=0.5)
         self.batch1 = BatchNormalization(center=False, scale=False)
         self.dropout1 = Dropout(dropout_rate)
-        self.lstm2 = LSTM(units=1024, return_sequences=False)
+        self.lstm2 = LSTM(units=1024, return_sequences=False,
+                          recurrent_dropout=0.5)
         self.batch2 = BatchNormalization(center=False, scale=False)
         self.dropout2 = Dropout(dropout_rate)
         self.dense = Dense(1024, activation='tanh')
@@ -28,13 +30,13 @@ class question_layer_LSTM(Model):
 
         # (N, SEQ_LENGTH, embedding_dim) -> (N, SEQ_LENGTH, 512)
         x = self.lstm1(x)
-        # x = self.batch1(x)
-        x = self.dropout1(x)
+        x = self.batch1(x)
+        # x = self.dropout1(x)
 
         # (N, SEQ_LENGTH, 512) -> (N, 512)
         x = self.lstm2(x)
-        # x = self.batch2(x)
-        x = self.dropout2(x)
+        x = self.batch2(x)
+        # x = self.dropout2(x)
 
         # (N, 512) -> (N * 1024)
         x = self.dense(x)
