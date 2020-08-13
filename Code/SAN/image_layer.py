@@ -20,6 +20,6 @@ class image_layer(Model):
 
         # (N, 196, 512) -> (N, 196, 1024)
         x = self.dense(x)
-        # x = self.batch(x)
+        x = self.batch(x)
 
         return x

@@ -67,7 +67,7 @@ def Train(dataset):
     earlystop_callback = EarlyStopping(monitor='val_loss',
                                        min_delta=0.0001,
                                        patience=2)
-    optimizer = Adadelta(learning_rate=LR)
+    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
@@ -120,7 +120,7 @@ def save_config(dataset):
     config = {'NAME': 'SAN_LSTM_2',
               'EMBEDDING': 'fasttext_300',
               "DATASET": DATASET,
-              "OPTIMIZER": 'Adadelta',
+              "OPTIMIZER": 'Adam',
               "EARLY STOPPING": 'val_loss',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,

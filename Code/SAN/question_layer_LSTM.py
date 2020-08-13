@@ -40,6 +40,6 @@ class question_layer_LSTM(Model):
 
         # (N, 512) -> (N * 1024)
         x = self.dense(x)
-        # x = self.batch(x)
+        x = self.batch(x)
 
         return x
