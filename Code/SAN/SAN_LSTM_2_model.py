@@ -6,7 +6,7 @@ from attention_layer import *
 from prepare_generator import *
 from question_layer_LSTM import *
 from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import SGD, Adam
+from tensorflow.keras.optimizers import SGD, Adam, Adadelta
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
@@ -67,7 +67,7 @@ def Train(dataset):
     earlystop_callback = EarlyStopping(monitor='val_loss',
                                        min_delta=0.0001,
                                        patience=2)
-    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
+    optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
@@ -120,7 +120,7 @@ def save_config(dataset):
     config = {'NAME': 'SAN_LSTM_2',
               'EMBEDDING': 'fasttext_300',
               "DATASET": DATASET,
-              "OPTIMIZER": 'Adam',
+              "OPTIMIZER": 'Adadelta',
               "EARLY STOPPING": 'val_loss',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
