@@ -128,7 +128,7 @@ def save_config(dataset):
               'EMBEDDING': 'fasttext_300',
               "DATASET": DATASET,
               "OPTIMIZER": 'Adam',
-              "EARLY STOPPING": 'val_loss'
+              "EARLY STOPPING": 'val_loss',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
