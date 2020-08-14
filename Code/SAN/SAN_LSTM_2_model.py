@@ -64,9 +64,7 @@ def Train(dataset):
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
                                    decay_rate=0.99997592083)
-    earlystop_callback = EarlyStopping(monitor='val_loss',
-                                       min_delta=0.0001,
-                                       patience=2)
+    earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
     # optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
     optimizer = Adadelta(learning_rate=LR)
 
@@ -142,5 +140,5 @@ def save_config(dataset):
     return
 
 
-Train(dataset=1)
-# Train(google=False)
+# Train(dataset=1)
+Train(dataset=2)
