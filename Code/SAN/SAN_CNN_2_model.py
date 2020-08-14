@@ -67,8 +67,8 @@ def Train(dataset):
                                    decay_rate=0.99997592083)
     earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
 
-    # optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
-    optimizer = Adadelta(learning_rate=LR)
+    optimizer = Adam(learning_rate=lr_schedule, clipnorm=5)
+    # optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
@@ -121,7 +121,7 @@ def save_config(dataset):
 
     config = {'NAME': 'SAN_CNN_2',
               'EMBEDDING': 'fasttext_300',
-              "OPTIMIZER": 'Adadelta',
+              "OPTIMIZER": 'Adam',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
