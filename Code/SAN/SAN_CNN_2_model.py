@@ -101,8 +101,8 @@ def Train(dataset):
 
     result = []
     for q in range(len(val_question_ids)):
-        ans = ans_vocab[predictions[q].argmax(axis=-1)]
-        q_id = val_question_ids[q]
+        ans = ans_vocab[str(predictions[q].argmax(axis=-1))]
+        q_id = int(val_question_ids[q])
         result.append({u'answer': ans, u'question_id': q_id})
 
     with open(PRED_PATH, 'w') as file:
@@ -137,7 +137,7 @@ def save_config(dataset):
 
     print("save config in" + str(CONFIG_PATH))
     with open(CONFIG_PATH, 'w') as file:
-        json.dump(list(result), file)
+        json.dump(list(config), file)
 
     return
 
