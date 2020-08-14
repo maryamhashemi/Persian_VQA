@@ -62,10 +62,10 @@ def extract_features(questions, questions_id, dir):
 
     questions = [q.replace('؟', ' ؟') for q in questions]
 
-    for i, q, id in enumerate(zip(questions, questions_id)):
+    for i, (q, q_id) in enumerate(zip(questions, questions_id)):
         features = pipe(q)
         features = np.squeeze(features)
-        np.save(BASE_PATH + dir + str(id) + '.npy', features)
+        np.save(BASE_PATH + dir + str(q_id) + '.npy', features)
 
         if (i+1) % 100 == 0:
             logger.info("extract features from %i/%i questions." %
