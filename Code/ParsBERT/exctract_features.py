@@ -90,13 +90,13 @@ def save_features(questions_path, save_dir):
 
 
 logger.info("extracting features from google train")
-save_features(GOOGLE_QUESTION_TRAIN_PATH, 'dataset/parsbert/google/train')
+save_features(GOOGLE_QUESTION_TRAIN_PATH, 'dataset/parsbert/google/train/')
 
-logger.info("extracting features from targoman train")
-save_features(TARGOMAN_QUESTION_TRAIN_PATH, 'dataset/parsbert/targoman/train')
+# logger.info("extracting features from targoman train")
+# save_features(TARGOMAN_QUESTION_TRAIN_PATH, 'dataset/parsbert/targoman/train/')
 
-logger.info("extracting features from goolge val")
-save_features(GOOGLE_QUESTION_VAL_PATH, 'dataset/parsbert/google/val')
+# logger.info("extracting features from goolge val")
+# save_features(GOOGLE_QUESTION_VAL_PATH, 'dataset/parsbert/google/val/')
 
-logger.info("extracting features from targoman val")
-save_features(TARGOMAN_QUESTION_VAL_PATH, 'dataset/parsbert/targoman/val')
+# logger.info("extracting features from targoman val")
+# save_features(TARGOMAN_QUESTION_VAL_PATH, 'dataset/parsbert/targoman/val/')
