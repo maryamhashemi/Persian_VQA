@@ -9,8 +9,11 @@ class question_layer_CNN(Model):
 
         super(question_layer_CNN, self).__init__(**kwargs)
 
-        self.embedding = Embedding(
-            num_words, embedding_dim, input_length=seq_length, trainable=False, weights=embedding_matrix)
+        self.embedding = Embedding(num_words,
+                                   embedding_dim,
+                                   input_length=seq_length,
+                                   weights=[embedding_matrix],
+                                   trainable=False)
         self.conv1 = Conv1D(
             filters=num_filters[0], kernel_size=filter_size[0], activation='relu', padding='same')
         self.conv2 = Conv1D(
