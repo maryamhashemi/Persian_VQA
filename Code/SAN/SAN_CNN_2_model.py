@@ -6,13 +6,13 @@ from attention_layer import *
 from prepare_generator import *
 from question_layer_CNN import *
 from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import SGD, Adam
-from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.optimizers import SGD, Adam, Adadelta
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 
 
-def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim):
+def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim, embedding_matrix):
 
     qs_input = Input(shape=(SEQ_LENGTH,))
     img_input = Input(shape=(512, 14, 14))
@@ -24,10 +24,12 @@ def SAN_CNN_2(num_classes, dropout_rate, num_words, embedding_dim, attention_dim
                                     NUM_FILTERS,
                                     SEQ_LENGTH,
                                     dropout_rate,
-                                    EMBEDDING_MATRIX)(qs_input)
+                                    embedding_matrix)(qs_input)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
     att = attention_layer(attention_dim)([image_embed, att])
+
+    att = Dropout(dropout_rate)(att)
 
     output = Dense(num_classes, activation='softmax')(att)
 
@@ -44,8 +46,10 @@ def Train(dataset):
 
     """
 
-    train_generator, val_generator, val_question_ids = get_generator(dataset)
-    save_config()
+    train_generator, val_generator, val_question_ids, embedding_matrix = get_generator(
+        dataset)
+
+    save_config(dataset)
 
     checkpoint = ModelCheckpoint(CHECKPOINT_PATH + '/cp-{epoch: 04d}.ckpt',
                                  save_weights_only=True,
@@ -53,15 +57,18 @@ def Train(dataset):
 
     model = SAN_CNN_2(NUM_CLASSES,
                       DROPOUT_RATE,
-                      VOCAB_SIZE,
+                      embedding_matrix.shape[0],
                       EMBEDDING_DIM,
-                      ATTENTION_DIM)
+                      ATTENTION_DIM,
+                      embedding_matrix)
 
     lr_schedule = ExponentialDecay(initial_learning_rate=LR,
                                    decay_steps=10000,
                                    decay_rate=0.99997592083)
+    earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
 
-    optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
+    # optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
+    optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
@@ -76,13 +83,19 @@ def Train(dataset):
     history = model.fit(x=train_generator,
                         epochs=EPOCHS,
                         validation_data=val_generator,
-                        callbacks=[checkpoint])
+                        callbacks=[checkpoint, earlystop_callback],
+                        workers=6,
+                        use_multiprocessing=True)
+
     # save history
     with open(HISTORY_PATH, 'w') as file:
         json.dump(history.history, file)
 
     # prediction
-    predictions = model.predict(val_generator)
+    predictions = model.predict(val_generator,
+                                workers=6,
+                                use_multiprocessing=True,
+                                verbose=1)
 
     ans_vocab = load_ans_vocab()
 
@@ -98,10 +111,17 @@ def Train(dataset):
     return
 
 
-def save_config():
+def save_config(dataset):
+    if dataset == 0:
+        DATASET = 'English'
+    if dataset == 1:
+        DATASET = 'Google'
+    if dataset == 2:
+        DATASET = 'Targoman'
+
     config = {'NAME': 'SAN_CNN_2',
               'EMBEDDING': 'fasttext_300',
-              "OPTIMIZER": 'Adam',
+              "OPTIMIZER": 'Adadelta',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
