@@ -99,7 +99,7 @@ def Train(dataset):
 
     ans_vocab = load_ans_vocab()
 
-    result = {}
+    result = []
     for q in range(len(val_question_ids)):
         ans = ans_vocab[predictions[q].argmax(axis=-1)]
         q_id = val_question_ids[q]
