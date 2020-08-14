@@ -4,12 +4,13 @@ Our aim in this project is to implement some state-of-the-art architectures desi
 ## Project Directory Tree
 ```
 ├── Code 
-│   ├── HieCoAttention   # source code Hierarchical Question-Image Co-Attention model
-│   ├── SAN              # source code of stacked attention network
-│   └── lstmQ+normI      # source code of baseline model
+│   ├── HieCoAttention   # source code Hierarchical Question-Image Co-Attention model.
+|   ├── ParsBERT         # source code for extracting features using ParsBERT.
+│   ├── SAN              # source code of stacked attention network.
+│   └── lstmQ+normI      # source code of baseline model.
 ├── Dataset 
-│   ├── Google.rar       # Q&A files translated by Google
-│   └── Targoman.rar     # Q&A files translated by Targoman
+│   ├── Google.rar       # Q&A files translated by Google.
+│   └── Targoman.rar     # Q&A files translated by Targoman.
 ├── Final Report 
 ├── Notebook 
 │   ├── analyze_dataset.ipynb
