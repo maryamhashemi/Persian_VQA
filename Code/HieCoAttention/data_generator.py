@@ -34,7 +34,7 @@ class DataGenerator(Sequence):
         Denotes the number of batches per epoch.
 
         """
-        return int(np.floor(self.questions.shape[0] / self.batch_size))
+        return int(np.ceil(self.questions.shape[0] / self.batch_size))
 
     def __getitem__(self, index):
         """
@@ -42,7 +42,11 @@ class DataGenerator(Sequence):
 
         """
         # Generate indexes of the batch
-        indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
+        if ((index+1)*self.batch_size <= self.questions.shape[0]):
+            indexes = self.indexes[index *
+                                   self.batch_size:(index + 1) * self.batch_size]
+        else:
+            indexes = self.indexes[index * self.batch_size:]
 
         # Generate data
         [x_seqs, x_ims], y = self.__data_generation(indexes)
@@ -54,7 +58,7 @@ class DataGenerator(Sequence):
         """
         Updates indexes after each epoch'
         """
-        self.indexes = np.arange(self.__len__()*self.batch_size)
+        self.indexes = np.arange(self.questions.shape[0])
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
 
@@ -64,9 +68,11 @@ class DataGenerator(Sequence):
         """
         Generates data containing batch_size samples
         """
-        x_seqs = np.empty((self.batch_size, SEQ_LENGTH))
-        x_ims = np.empty((self.batch_size, 512, 14, 14))
-        y = np.empty((self.batch_size, NUM_CLASSES), dtype=int)
+        batch = indexes.shape[0]
+
+        x_seqs = np.empty((batch, SEQ_LENGTH))
+        x_ims = np.empty((batch, 512, 14, 14))
+        y = np.empty((batch, NUM_CLASSES), dtype=int)
 
         for i, idx in enumerate(indexes):
             # Store sample
@@ -76,12 +82,5 @@ class DataGenerator(Sequence):
             # Store class
             y[i] = self.answers[idx]
 
-        # (B, 512, 14, 14) -> (B, 196, 512)
-        x_ims = np.reshape(
-            x_ims, (-1, x_ims.shape[1], x_ims.shape[2]*x_ims.shape[3]))
-        x_ims = np.transpose(x_ims, axes=[0, 2, 1])
-
-        logger.info(str(x_ims.shape))
         logger.info("successfully create one batch of data.")
-
         return [x_seqs, x_ims], y

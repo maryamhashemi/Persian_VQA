@@ -30,6 +30,7 @@ def get_generator(dataset):
     Return:
     train_generator -- a generator of training data.
     val_generator -- a generator of validation data.
+    val_questions_ids -- a list of question ids in validation data.
 
     """
 
@@ -68,7 +69,8 @@ def get_generator(dataset):
     val_questions = val_data["question"].values
 
     # apply preprocessing on questions
-    train_seqs, val_seqs = preprocess_question(train_questions, val_questions)
+    train_seqs, val_seqs, embedding_matrix = preprocess_question(
+        train_questions, val_questions)
     logger.info("shape of train_seqs is" + str(train_seqs.shape))
     logger.info("shape of val_seqs is" + str(val_seqs.shape))
 
@@ -86,7 +88,7 @@ def get_generator(dataset):
 
     # get answers
     _, train_answers, val_answers = get_train_val_label(
-        train_data, val_data, dataset)
+        train_data, val_data)
 
     train_generator = DataGenerator(train_seqs,
                                     train_image_ids,
@@ -99,7 +101,10 @@ def get_generator(dataset):
                                   val_image_ids,
                                   val_image_path,
                                   val_answers,
-                                  BATCH_SIZE)
+                                  BATCH_SIZE,
+                                  False)
     logger.info("successfully build val generator")
 
-    return train_generator, val_generator
+    val_questions_ids = val_data["question_id"].values
+
+    return train_generator, val_generator, val_questions_ids, embedding_matrix
