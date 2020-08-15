@@ -8,11 +8,16 @@ class question_layer_LSTM(Model):
     def __init__(self, num_words, embedding_dim, dropout_rate, seq_length, embedding_matrix, ** kwargs):
         super(question_layer_LSTM, self).__init__(**kwargs)
 
+        # self.embedding = Embedding(num_words,
+        #                            embedding_dim,
+        #                            input_length=seq_length,
+        #                            weights=[embedding_matrix],
+        #                            trainable=False)
         self.embedding = Embedding(num_words,
                                    embedding_dim,
-                                   input_length=seq_length,
-                                   weights=[embedding_matrix],
-                                   trainable=False)
+                                   input_length=seq_length
+                                   trainable=True)
+
         self.lstm1 = LSTM(units=1024, return_sequences=True,
                           recurrent_dropout=0.5)
         self.batch1 = BatchNormalization(center=False, scale=False)

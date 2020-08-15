@@ -65,8 +65,9 @@ def Train(dataset):
                                    decay_steps=10000,
                                    decay_rate=0.99997592083)
     earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
-    # optimizer = Adam(learning_rate=lr_schedule, clipnorm=10)
-    optimizer = Adadelta(learning_rate=LR)
+
+    optimizer = Adam(learning_rate=LR)
+    # optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
                   loss='categorical_crossentropy',
@@ -141,4 +142,4 @@ def save_config(dataset):
 
 
 # Train(dataset=1)
-Train(dataset=2)
+Train(dataset=1)
