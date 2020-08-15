@@ -243,54 +243,8 @@ def preprocess_question(train_qs, val_qs):
     logger.info("convert validation questions to sequences.")
 
     vocab_and_vectors = load_fasttext()
-    embedding_matrix = get_embedding_matrix(
-        VOCAB_SIZE, word_index, vocab_and_vectors)
 
-    logger.info("shape of embedding_matrix is " + str(embedding_matrix.shape))
-
-    return train_X_seqs, val_X_seqs, embedding_matrix
-
-
-def load_fasttext():
-    """
-    load fasttext embedding file.
-    """
-    file = open(FASTTEXT_PATH, encoding="utf8")
-
-    vocab_and_vectors = {}
-    for line in file:
-        values = line.split()
-        word = values[0]
-        vector = np.asarray(values[1:], dtype='float32')
-        vocab_and_vectors[word] = vector
-
-    logger.info("load fasttext.")
-
-    return vocab_and_vectors
-
-
-def get_embedding_matrix(vocab_size, word_index, vocab_and_vectors):
-    """
-    create embedding matrix of all vocabs.
-
-    Arguments:
-    word_index -- a dictionary that maps word to index.
-    vocab_and_vectors -- a dictionary that maps fasttext words to their embedding vectors.
-
-    Return:
-    embedding_matrix -- a numpy array that hold words embedding.
-    """
-    embedding_matrix = np.zeros((vocab_size, EMBEDDING_DIM))
-
-    for word, i in word_index.items():
-        embedding_vector = vocab_and_vectors.get(word)
-
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
-    logger.info("create embedding matrix.")
-
-    return embedding_matrix
+    return train_X_seqs, val_X_seqs
 
 
 def load_ans_vocab():

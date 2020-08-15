@@ -61,9 +61,6 @@ EPOCHS = 50
 BATCH_SIZE = 300
 SEQ_LENGTH = 26
 VOCAB_SIZE = 0
-NUM_FILTERS = [256, 256, 512]
-FILTER_SIZE = [1, 2, 3]
-ATTENTION_DIM = 512
 NUM_CLASSES = 1000
 LR = 0.0005
 # LR = 1
@@ -71,7 +68,7 @@ LR = 0.0005
 OOV_TOK = "<OOV>"
 
 # Experiment id
-EXP_ID = 15
+EXP_ID = 1
 
 # Tokenizer path
 TOKEN_PATH = 'Exp{id}/tokenizer.pickle'.format(id=EXP_ID)
@@ -93,5 +90,3 @@ PRED_PATH = 'Exp{id}/result.json'.format(id=EXP_ID)
 
 # config path
 CONFIG_PATH = 'Exp{id}/config.json'.format(id=EXP_ID)
-
-EMBEDDING_MATRIX = None
