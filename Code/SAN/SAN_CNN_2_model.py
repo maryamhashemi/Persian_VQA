@@ -121,14 +121,15 @@ def save_config(dataset):
 
     config = {'NAME': 'SAN_CNN_2',
               'EMBEDDING': 'fasttext_300',
+              "DATASET": DATASET,
               "OPTIMIZER": 'Adam',
+              "EARLY STOPPING": 'val_loss',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
               "EPOCHS": EPOCHS,
               "BATCH_SIZE": BATCH_SIZE,
               "SEQ_LENGTH": SEQ_LENGTH,
-              "VOCAB_SIZE": VOCAB_SIZE,
               "NUM_FILTERS": NUM_FILTERS,
               "FILTER_SIZE": FILTER_SIZE,
               "ATTENTION_DIM": ATTENTION_DIM,
@@ -137,7 +138,7 @@ def save_config(dataset):
 
     print("save config in" + str(CONFIG_PATH))
     with open(CONFIG_PATH, 'w') as file:
-        json.dump(list(config), file)
+        json.dump(config, file)
 
     return
 

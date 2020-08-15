@@ -42,7 +42,7 @@ def Train(dataset=True):
 
     model = coattention(VOCAB_SIZE)
 
-    model.compile(optimizer=Adam(learning_rate=0.0001),
+    model.compile(optimizer=Adam(learning_rate=LR),
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
@@ -93,20 +93,22 @@ def save_config(dataset):
 
     config = {'NAME': 'coattention',
               'EMBEDDING': 'keras',
+              "DATASET": DATASET,
               "OPTIMIZER": 'Adam',
+              "EARLY STOPPING": 'val_loss',
               "LOSS": 'categorical_crossentropy',
               'DROPOUT_RATE': DROPOUT_RATE,
               "EMBEDDING_DIM": EMBEDDING_DIM,
               "EPOCHS": EPOCHS,
               "BATCH_SIZE": BATCH_SIZE,
               "SEQ_LENGTH": SEQ_LENGTH,
-              "NUM_CLASSES": NUM_CLASSES, }
+              "NUM_CLASSES": NUM_CLASSES}
 
     print("save config in" + str(CONFIG_PATH))
     with open(CONFIG_PATH, 'w') as file:
-        json.dump(list(config), file)
+        json.dump(config, file)
 
     return
 
 
-Train(dataset=1)
+Train(dataset=2)
