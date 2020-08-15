@@ -242,7 +242,7 @@ def preprocess_question(train_qs, val_qs):
     val_X_seqs = np.array(val_X_seqs)
     logger.info("convert validation questions to sequences.")
 
-    return train_X_seqs, val_X_seqs
+    return train_X_seqs, val_X_seqs, VOCAB_SIZE
 
 
 def load_ans_vocab():

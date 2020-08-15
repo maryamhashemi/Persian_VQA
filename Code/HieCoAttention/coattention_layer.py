@@ -7,12 +7,12 @@ from tensorflow.keras.initializers import glorot_normal, RandomNormal, he_normal
 
 class CoattentionModel(Layer):
 
-    def __init__(self):
+    def __init__(self, num_embeddings):
         super().__init__()
         self.num_classes = NUM_CLASSES
         self.hidden_size = 512
         self.dropout = 0.5
-        self.num_embeddings = VOCAB_SIZE
+        self.num_embeddings = num_embeddings
 
         self.image_dense = Dense(self.hidden_size,
                                  kernel_initializer=glorot_normal(seed=15))

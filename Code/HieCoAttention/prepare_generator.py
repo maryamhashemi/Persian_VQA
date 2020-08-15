@@ -69,7 +69,7 @@ def get_generator(dataset):
     val_questions = val_data["question"].values
 
     # apply preprocessing on questions
-    train_seqs, val_seqs = preprocess_question(
+    train_seqs, val_seqs, VOCAB_SIZE = preprocess_question(
         train_questions, val_questions)
     logger.info("shape of train_seqs is" + str(train_seqs.shape))
     logger.info("shape of val_seqs is" + str(val_seqs.shape))
@@ -107,4 +107,4 @@ def get_generator(dataset):
 
     val_questions_ids = val_data["question_id"].values
 
-    return train_generator, val_generator, val_questions_ids
+    return train_generator, val_generator, val_questions_ids, VOCAB_SIZE

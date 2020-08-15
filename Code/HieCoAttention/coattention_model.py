@@ -8,11 +8,11 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import LearningRateScheduler, ModelCheckpoint, EarlyStopping
 
 
-def coattention():
+def coattention(num_embeddings):
     image_input = Input(shape=(196, 512))
     question_input = Input(shape=(SEQ_LENGTH,))
 
-    output = CoattentionModel()(question_input, image_input)
+    output = CoattentionModel(num_embeddings)(question_input, image_input)
 
     model = Model(inputs=[question_input, image_input], outputs=output)
 
@@ -28,7 +28,8 @@ def scheduler(epoch):
 
 def Train(dataset=True):
 
-    train_generator, val_generator, val_question_ids = get_generator(dataset)
+    train_generator, val_generator, val_question_ids, VOCAB_SIZE = get_generator(
+        dataset)
 
     save_config(dataset)
 
@@ -39,10 +40,12 @@ def Train(dataset=True):
     scheduler_lr = LearningRateScheduler(scheduler, verbose=0)
     earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
 
-    model = coattention()
+    model = coattention(VOCAB_SIZE)
+
     model.compile(optimizer=Adam(learning_rate=0.0001),
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
+
     model.summary()
 
     # Save the weights using the `checkpoint_path` format
