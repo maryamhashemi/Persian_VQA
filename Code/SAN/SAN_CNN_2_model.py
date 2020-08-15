@@ -67,7 +67,7 @@ def Train(dataset):
                                    decay_rate=0.99997592083)
     earlystop_callback = EarlyStopping(monitor='val_loss', patience=3)
 
-    optimizer = Adam(learning_rate=lr_schedule, clipnorm=5)
+    optimizer = Adam(learning_rate=LR)
     # optimizer = Adadelta(learning_rate=LR)
 
     model.compile(optimizer=optimizer,
@@ -142,5 +142,5 @@ def save_config(dataset):
     return
 
 
-Train(dataset=2)
+Train(dataset=1)
 # Train(google=False)
