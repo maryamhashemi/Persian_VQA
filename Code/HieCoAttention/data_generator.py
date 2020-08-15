@@ -82,5 +82,9 @@ class DataGenerator(Sequence):
             # Store class
             y[i] = self.answers[idx]
 
+        # (B, 512, 14, 14) -> (B, 196, 512)
+        x_ims = np.reshape(
+            x_ims, (-1, x_ims.shape[1], x_ims.shape[2]*x_ims.shape[3]))
+        x_ims = np.transpose(x_ims, axes=[0, 2, 1])
         logger.info("successfully create one batch of data.")
         return [x_seqs, x_ims], y
