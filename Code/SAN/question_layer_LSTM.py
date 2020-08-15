@@ -15,7 +15,7 @@ class question_layer_LSTM(Model):
         #                            trainable=False)
         self.embedding = Embedding(num_words,
                                    embedding_dim,
-                                   input_length=seq_length
+                                   input_length=seq_length,
                                    trainable=True)
 
         self.lstm1 = LSTM(units=1024, return_sequences=True,
