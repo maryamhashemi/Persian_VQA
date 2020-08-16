@@ -25,7 +25,8 @@ def SAN_LSTM_2(num_classes, dropout_rate, num_words, embedding_dim, attention_di
                                      embedding_matrix)(qs_input)
 
     att = attention_layer(attention_dim)([image_embed, ques_embed])
-    # att = attention_layer(attention_dim)([image_embed, att])
+    att = attention_layer(attention_dim)([image_embed, att])
+    att = attention_layer(attention_dim)([image_embed, att])
 
     att = Dropout(dropout_rate)(att)
 
@@ -117,7 +118,7 @@ def save_config(dataset):
     if dataset == 2:
         DATASET = 'Targoman'
 
-    config = {'NAME': 'SAN_LSTM_1',
+    config = {'NAME': 'SAN_LSTM_3',
               'EMBEDDING': 'fasttext_300',
               "DATASET": DATASET,
               "OPTIMIZER": 'Adam',
