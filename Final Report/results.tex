@@ -1,2 +1,107 @@
 \section{نتایج}
-نتایجلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+{	
+	\subsection{\lr{LSTM Q + norm I}}
+	{
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c || c c c c} \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{Google Translation}} & \multicolumn{4}{c}{\textbf{Targoman Translation}} \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{lstm Q + VGG19} & 76.14\ & 32.97\ & 35.78\ & 50.53\ & 75.58\ & 32.61\ & 33.53\ & 49.15\ \\
+						%\textbf{lstm Q + VGG19} & \ & \ & \ & \ & \ & \ & \ & \ \\
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+	
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c || c c c c} \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{ٍEnglish-paperToken}} & \multicolumn{4}{c}{\textbf{English-kerasToken}} \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{lstm Q + VGG19} & 78.43\ & 33.7\ & 37.99\ & 52.58\ & 78.53\ & 31.91\ & 38.78\ & 52.79\ \\
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+	
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c } \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c}{\textbf{Google Translation}}  \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{BilstmQ+resNet152} & 76.46\ & 31.63\ & 38.6\ & 51.89\ \\
+						\textbf{lstmQ+resNet152} & 76.83\ & 31.75\ & 38.77\ & 52.13\ \\ 
+						\textbf{CNNQ+resNet152} & 78.34\ & 31.91\ & 38.98\ & 52.82\ \\
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+	
+	}
+	\subsection{\lr{Stacked Attention Network}}
+	{
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c || c c c c} \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{Google Translation}} & \multicolumn{4}{c}{\textbf{Targoman Translation}} \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{SAN\_LSTM\_2} & 77.83\ & 33.19\ & 39.08\ & 52.84\ & 75.95\ & 31.61\ & 36.82\ & 50.81\ \\ 
+						\textbf{SAN\_CNN\_2} & 77.49\ & 33.17\ & 39.18\ & 52.76\ & 76.48\ & 32.29\ & 37.37\ & 51.37\ \\
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+		
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c } \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c}{\textbf{Google Translation}}  \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{SAN\_LSTM\_1} & 77.46\ & 32.23\ & 38.35\ & 52.22\ \\
+						\textbf{SAN\_LSTM\_2} & 77.83\ & 33.19\ & 39.08\ & 52.84\ \\ 
+						\textbf{SAN\_LSTM\_3} & 77.12\ & 32.56\ & 38.62\ & 52.27\ \\
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+	
+	}
+	\subsection{\lr{HieCoAttention}}
+	{
+		\begin{table}[H]\centering
+			\begin{latin}
+				\begin{small}
+					\begin{tabular}{ c|| c c c c || c c c c} \toprule
+						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{Google Translation}} & \multicolumn{4}{c}{\textbf{Targoman Translation}} \\ \midrule
+						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+						\textbf{CoAttention} & 76.62\ & 32.7\ & 38.12\ & 51.85\ & 74.18\ & 32.41\ & 32.47\ & 48.07\ \\ 
+						\bottomrule
+					\end{tabular}
+				\end{small}
+			\end{latin}
+			\caption{}
+		\end{table}
+		
+	}
+	
+
+	
+
+
+}
