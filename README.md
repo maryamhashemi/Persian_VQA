@@ -8,6 +8,7 @@ Our aim in this project is to implement some state-of-the-art architectures desi
 |   ├── ParsBERT         # source code for extracting features using ParsBERT.
 │   ├── SAN              # source code of stacked attention network.
 │   └── lstmQ+normI      # source code of baseline model.
+├── Final Representation 
 ├── Final Report 
 ├── Notebook 
 │   ├── analyze_dataset.ipynb
