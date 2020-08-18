@@ -33,7 +33,7 @@
 	}
 	\subsection{\lr{LSTM Q + norm I} \cite{antol2015vqa}}
 	{
-		\begin{figure}
+		\begin{figure}[h]
 			\centering
 			\includegraphics[scale=0.4]{images/Vanilla_Network.jpg}
 			\caption{ساختار کلی روش \lr{LSTM Q + norm I}  .}
@@ -55,7 +55,7 @@
 		می‌توانید مشاهده کنید. شبکه SAN از سه جز اصلی تشکیل شده است: 1) مدل تصویر که با استفاده از CNN ویژگی‌های سطح بالایی را از تصویر استخراج می‌کند. 2) مدل سوال که با استفاده از CNN یا LSTM ویژگی‌های معنایی سوال را استخراج می‌کند. 3) مدل
 		 \lr{stacked attention}
 		 ‌ که از طریق استدلال چند مرحله‌ای مناطقی از تصویر که مرتبط به سوال است را پیدا می‌کند تا پاسخ را پیش‌بینی کند.
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.5]{images/san.jpg}
 			\caption{ساختار کلی روش SAN .}
@@ -142,12 +142,12 @@
 			\label{fig:7}
 		\end{figure}
 		روش پیشنهاد شده در 
-		\cite{}
+		\cite{lu2016hierarchical}
 		دارای دو ویژگی مهم است. ویژگی اول بازنمایی سلسله‌مراتبی سوال و ویژگی دوم مکانیزم coattention می‌باشد. در ادامه این دو خصوصیات را شرح می‌دهیم.
 		
 		\subsubsection{بازنمایی سلسله‌مراتبی سوال}
 		{
-			\begin{figure}
+			\begin{figure}[h]
 				\centering
 				\includegraphics[scale=0.5]{images/hierarchical.jpg}
 				\caption{بازنمایی سلسله‌مراتبی سوال.}
@@ -229,7 +229,7 @@
 	
 		\subsubsection{پیش‌بینی پاسخ}
 		{
-			\begin{figure}
+			\begin{figure}[h]
 				\centering
 				\includegraphics[scale=0.6]{images/answer.JPG}
 				\caption{پیش‌بینی پاسخ}

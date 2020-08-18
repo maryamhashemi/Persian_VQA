@@ -1,5 +1,5 @@
-\section{نتایج}
-{	
+\section{ نتایج و تحلیل}
+{	در این بخش نتایج هر کدام از روش‌ها را در سه بخش زیر مشاهده خواهیم کرد.
 	\subsection{\lr{LSTM Q + norm I}}
 	{
 		\begin{table}[H]\centering
@@ -8,13 +8,15 @@
 					\begin{tabular}{ c|| c c c c || c c c c} \toprule
 						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{Google Translation}} & \multicolumn{4}{c}{\textbf{Targoman Translation}} \\ \midrule
 						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
-						\textbf{lstm Q + VGG19} & 76.14\ & 32.97\ & 35.78\ & 50.53\ & 75.58\ & 32.61\ & 33.53\ & 49.15\ \\
+						\textbf{lstm Q + VGG19(hard)} & 76.14\ & 32.97\ & 35.78\ & 50.53\ & 75.58\ & 32.61\ & 33.53\ & 49.15\ \\
+						\textbf{lstm Q + VGG19(soft)} & 76.74\ & 32.5\ & 36.98\ & \textbf{51.3}\ & 76.86\ & 31.85\ & 36.26\ & \textbf{50.91}\ \\
 						%\textbf{lstm Q + VGG19} & \ & \ & \ & \ & \ & \ & \ & \ \\
 						\bottomrule
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{دقت  روش \lr{baseline} بر روی مجموعه‌داده فارسی تهیه شده.}
+			\label{tabel:4}
 		\end{table}
 	
 		\begin{table}[H]\centering
@@ -23,12 +25,14 @@
 					\begin{tabular}{ c|| c c c c || c c c c} \toprule
 						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{ٍEnglish-paperToken}} & \multicolumn{4}{c}{\textbf{English-kerasToken}} \\ \midrule
 						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
-						\textbf{lstm Q + VGG19} & 78.43\ & 33.7\ & 37.99\ & 52.58\ & 78.53\ & 31.91\ & 38.78\ & 52.79\ \\
+						\textbf{lstm Q + VGG19(hard)} & 78.43\ & 33.7\ & 37.99\ & 52.58\ & 78.53\ & 31.91\ & 38.78\ & 52.79\ \\
+						\textbf{lstm Q + VGG19(soft)} & 79.34\ & 32.69\ & 40.41\ & \textbf{54.01}\ & 79.41\ & 33.62\ & 39.42\ & \textbf{53.66}\ \\
 						\bottomrule
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{دقت  روش \lr{baseline} بر روی مجموعه‌داده انگلیسی .}
+			\label{tabel:5}
 		\end{table}
 	
 		\begin{table}[H]\centering
@@ -37,19 +41,32 @@
 					\begin{tabular}{ c|| c c c c } \toprule
 						\multicolumn{1}{c ||}{ }&\multicolumn{4}{c}{\textbf{Google Translation}}  \\ \midrule
 						\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
-						\textbf{BilstmQ+resNet152} & 76.46\ & 31.63\ & 38.6\ & 51.89\ \\
-						\textbf{lstmQ+resNet152} & 76.83\ & 31.75\ & 38.77\ & 52.13\ \\ 
-						\textbf{CNNQ+resNet152} & 78.34\ & 31.91\ & 38.98\ & 52.82\ \\
+						\textbf{BilstmQ+resNet152(hard)} & 76.46\ & 31.63\ & 38.6\ & 51.89\ \\
+						\textbf{lstmQ+resNet152(hard)} & 76.83\ & 31.75\ & 38.77\ & 52.13\ \\ 
+						\textbf{CNNQ+resNet152(hard)} & 78.34\ & 31.91\ & 38.98\ & 52.82\ \\
+						\textbf{BilstmQ+resNet152(soft)} & 78.22\ & 33\ & 39.89\ & 53.37\ \\
+						\textbf{lstmQ+resNet152(soft)} & 78.5\ & 31.76\ & 40.4\ & 53.58\ \\ 
+						\textbf{CNNQ+resNet152(soft)} & 78.38\ & 32.36\ & 38.99\ & 52.9\ \\
 						\bottomrule
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{دقت  روش \lr{baseline} با استفاده از ویژگی‌های استخراج شده از شبکه ResNet152 .}
+			\label{tabel:4}
 		\end{table}
 	
 	}
 	\subsection{\lr{Stacked Attention Network}}
 	{
+		این روش را به دو صورت آزمایش کرده‌ایم. در حالت اول برای استخراج ویژگی از سوال، از دو لایه LSTM 1024 تایی با
+		 \lr{recurrent dropout}
+		   با نرخ $0.5$ استفاده می‌کنیم. بعد از هر لایه‌ی LSTM‌ یک لایه‌ی BatchNormalization‌ قرار می‌دهیم. در حالت دوم برای استخراج ویژگی از سوال، از روش CNN های یک بعدی با فیلتر سایز‌های 1، 2 و 3 که به ترتیب تعداد فیلتر‌ها برای هر کدام 256، 256 و 512 است؛ استفاده می‌کنیم. در هر دو حالت آزمایش از دو لایه‌ی attention به ابعاد 1024‌‌استفاده می‌کنیم. برای پیاده‌سازی این روش از Tensorflow.keras استفاده کرده‌ایم. از Adam به عنوان بهینه‌ساز با نرخ یادگیری $0.0005$ استفاده کردیم. سایز batch‌ را برای همه‌ی آزمایش‌های این بخش 300 قرار دادیم. شبکه را با حداکثر 50‌ گام به همراه 
+		  \lr{Early stopping}
+		   آموزش می‌دهیم تا زمانی که دقت روی داده‌های ارزیابی در 3 گام آخر تغییر نکند.
+		   
+		    نتایج حاصل از این شبکه را در جدول
+		\ref{tabel:1} 
+		می‌توانید مشاهده کنید. همانطور که پیداست به طور کلی دقت برای حالتی که از ترجمه‌های Google استفاده می‌کنیم بیشتر است. زمانی که از ترجمه‌های Google استفاده می‌کنیم، روش  LSTM دقت بالاتری دارد اما زمانی که از ترجمه‌های ترگمان استفاده می‌کنیم دقت روش CNN بیشتر است. نکته‌ی حائز اهمیت در اینجا این است که دقت بین دو حالت LSTM‌ و CNN‌ چندان تفاوتی ندارد اما از لحاظ منابع محاسباتی روش CNN به صرفه‌تر است زیرا تعداد پارامترها در روش CNN‌ تقریبا 8 میلیون و در روش LSTM‌‌ 22 میلیون می‌باشد.‌
 		\begin{table}[H]\centering
 			\begin{latin}
 				\begin{small}
@@ -62,9 +79,13 @@
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{دقت  روش \lr{Stacked Attention Network}.}
+			\label{tabel:1}
 		\end{table}
 		
+		برای بررسی تاثیر تعداد لایه‌های attention ، مدل را در سه حالت که تعداد لایه‌های attention 1، 2 و 3 باشد؛ آموزش می‌دهیم. با توجه به جدول 
+		\ref{tabel:2} 
+		دقت وقتی تعداد لایه‌های attention 2 است بیشتر است. این نشان دهنده‌ی این است که ما برای بدست آوردن پاسخ نیاز به استدلال چند مرحله‌ای داریم. به همین خاطر یک لایه‌ی attention کافی نیست. از طرفی اگر تعداد لایه‌ها بیشتر از حدی باشد منجر به پاسخ اشتباه می‌شود. در اینجا زمانی که تعداد لایه‌ها را بیشتر از 2 قرار دهیم منجر به کاهش عملکرد مدل می‌شود.
 		\begin{table}[H]\centering
 			\begin{latin}
 				\begin{small}
@@ -78,12 +99,24 @@
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{بررسی تاثیر تعداد لایه‌های attention‌ در روش \lr{Stacked Attention Network}.}
+			\label{tabel:2}
 		\end{table}
 	
 	}
 	\subsection{\lr{HieCoAttention}}
 	{
+		برای پیاده‌سازی این روش از Tensorflow.keras استفاده کرده‌ایم. از Adam به عنوان بهینه‌ساز با نرخ یادگیری $0.0005$ استفاده کردیم. سایز batch‌ را برای همه‌ی آزمایش‌های این بخش 300 قرار دادیم. شبکه را با حداکثر 50‌ گام به همراه 
+		\lr{Early stopping}
+		آموزش می‌دهیم تا زمانی که دقت روی داده‌های ارزیابی در 3 گام آخر تغییر نکند. ابعاد لایه Embedding و لایه‌های پنهان را 512 قرار دادیم. نرخ dropout را $0.5$ تنظیم کرده‌ایم.
+		
+		 نتایج حاصل از این شبکه را در جدول
+		\ref{tabel:3} 
+		می‌توانید مشاهده کنید. انتظار ما این بود که بهترین نتایج برای این شبکه باشد اما تنظیم هایپرپارامترها در این شبکه اهمیت زیادی در دقت نهایی دارد. همچنین همگرایی این مدل به کندی اتفاق می‌افتد  و زمان آموزش آن بسیار زیاد است. به همین دلیل ما زمان و منابع محاسباتی کافی برای اجرا درست این شبکه را نداشته‌ایم. با این حال دقت این مدل برای ترجمه‌های Google برابر با
+		$51.85$
+		و برای ترگمان برابر با 
+		$48.07$‌
+		است.
 		\begin{table}[H]\centering
 			\begin{latin}
 				\begin{small}
@@ -95,13 +128,33 @@
 					\end{tabular}
 				\end{small}
 			\end{latin}
-			\caption{}
+			\caption{ دقت‌ روش \lr{HieCoAttention}.}
+			\label{tabel:3}
 		\end{table}
 		
 	}
 	
 
-	
+\begin{table}[H]\centering
+	\begin{latin}
+		\begin{small}
+			\begin{tabular}{ c|| c c c c || c c c c} \toprule
+				\multicolumn{1}{c ||}{ }&\multicolumn{4}{c||}{\textbf{Google Translation}} & \multicolumn{4}{c}{\textbf{Targoman Translation}} \\ \midrule
+				\textbf{Method} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} & \textbf{yes/no} & \textbf{Number} & \textbf{Other} & \textbf{All} \\ \midrule
+				\textbf{lstm Q + VGG19} & 76.14\ & 32.97\ & 35.78\ & 50.53\ & 75.58\ & 32.61\ & 33.53\ & 49.15\ \\
+				\textbf{BilstmQ+resNet152} & 76.46\ & 31.63\ & 38.6\ & 51.89\ & -\ & -\ & -\ & -\ \\
+				\textbf{lstmQ+resNet152} & 76.83\ & 31.75\ & 38.77\ & 52.13\ & -\ & -\ & -\ & -\ \\
+				\textbf{CNNQ+resNet152} & 78.34\ & 31.91\ & 38.98\ & 52.82\ & -\ & -\ & -\ & -\ \\
+				\textbf{SAN\_LSTM\_2} & 77.83\ & 33.19\ & 39.08\ & \textbf{52.84}\ & 75.95\ & 31.61\ & 36.82\ & 50.81\ \\ 
+				\textbf{SAN\_CNN\_2} & 77.49\ & 33.17\ & 39.18\ & 52.76\ & 76.48\ & 32.29\ & 37.37\ & \textbf{51.37}\ \\
+				\textbf{CoAttention} & 76.62\ & 32.7\ & 38.12\ & 51.85\ & 74.18\ & 32.41\ & 32.47\ & 48.07\ \\ 
+				\bottomrule
+			\end{tabular}
+		\end{small}
+	\end{latin}
+	\caption{دقت کلی}
+	\label{tabel:7}
+\end{table}
 
 
 }
